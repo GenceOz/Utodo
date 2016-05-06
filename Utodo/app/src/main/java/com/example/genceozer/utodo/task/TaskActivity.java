@@ -1,13 +1,15 @@
-package com.example.genceozer.utodo;
+package com.example.genceozer.utodo.task;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class LoginActivity extends AppCompatActivity {
+import com.example.genceozer.utodo.R;
+
+public class TaskActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_task);
     }
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Utodo</string>
+    <string name="title_activity_create_group">CreateGroupActivity</string>
+    <string name="title_activity_create_task_group">CreateTaskGroupActivity</string>
 </resources>
