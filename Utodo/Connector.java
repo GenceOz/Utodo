@@ -82,6 +82,28 @@ public class Connector{
 	   	postRef.push().setValue(post);
    }
 
+   public void getGroup(String groupID){
+      rootRef.child("groups/" + groupID).addValueEventListener(new ValueEventListener()){
+            @Override
+            public void onDataChange(DataSnapshot snapshot){
+               //Add group class and construct group with HashMap
+               //Invoke necessary methods.
+            }
+
+      }
+   }
+
+   public getTasks(String groupID){
+      rootRef.child("groups/" + groupID + "tasks").addValueEventListener(new ValueEventListener()){
+            @Override
+            public void onDataChange(DataSnapshot snapshot){
+               Task newTask = new Task(snapshot.getValue()) //Constructor with HashMap
+               //Invoke necessary methods.
+            }
+
+         }
+   }
+
    public void inviteUser(String groupID, String groupName, String username){
    		Firebase postRef = rootRef.child("/" + username + "/invitations");
 
