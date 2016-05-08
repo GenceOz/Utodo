@@ -19,10 +19,10 @@
 
         <activity
             android:name=".taskgroup.TaskGroupActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+            android:theme="@style/ActionBarTheme" />
 
         <activity android:name=".taskgroup.CreateTaskGroupActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"/>
+            android:theme="@style/ActionBarTheme"/>
 
         <activity android:name=".task.TaskActivity"></activity>
     </application>
