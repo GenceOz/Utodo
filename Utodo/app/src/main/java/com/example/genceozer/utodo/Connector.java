@@ -1,12 +1,19 @@
+package com.example.genceozer.utodo;
+/*
+import com.example.genceozer.utodo.entities.Task;
+
+import java.util.HashMap;
+import java.util.Map;
+
 //Singleton class
-public class Connector{ 
-	private static Connector sharedInstance = new Connector(); 
+public class Connector{
+	private static Connector sharedInstance = new Connector();
 
 	Firebase rootRef = new Firebase("https://docs-examples.firebaseio.com/web/data");
 
 	User loggedUser = new User(); //Update at log in
 
-	private Connector(){} 
+	private Connector(){}
 
 	public static Connector getInstance( ) {
       return sharedInstance;
@@ -75,7 +82,7 @@ public class Connector{
 
 //Group Methods
    public void createGroup(String groupName){ //Add members and tasks later.
-	   	Firebase postRef - rootRef.child("groups");
+	   	Firebase postRef = rootRef.child("groups");
 
 	   	Map<String, String> post = new HashMap<String, String>();
 	   	post.put("groupname", groupName);
@@ -93,7 +100,7 @@ public class Connector{
       }
    }
 
-   public getTasks(String groupID){
+   public void getTasks(String groupID){
       rootRef.child("groups/" + groupID + "tasks").addValueEventListener(new ValueEventListener()){
             @Override
             public void onDataChange(DataSnapshot snapshot){
@@ -138,3 +145,4 @@ public class Connector{
    		postRef.push().setValue(post);
    }
 }
+*/

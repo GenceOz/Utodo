@@ -10,23 +10,23 @@ public class TaskGroup {
 
     String groupTitle;
     Integer groupMemberCount;
-    //List<Task> taskList;
+    List<Task> taskList;
     Integer taskGroupId;
     Date incomingDeadline;
 
     public TaskGroup(){
 
     }
-    public TaskGroup(String groupTitle,Integer groupMemberCount,Date incomingDeadline, Integer taskGroupId){
+    public TaskGroup(String groupTitle,Integer groupMemberCount,Date incomingDeadline, Integer taskGroupId, List<Task> taskList){
 
         this.groupTitle = groupTitle;
         this.groupMemberCount = groupMemberCount;
         this.taskGroupId = taskGroupId;
-        //this.taskList = taskList;
+        this.taskList = taskList;
         this.incomingDeadline = incomingDeadline;
     }
 
-    /*
+
     public List<Task> getTaskList() {
         return taskList;
     }
@@ -34,7 +34,7 @@ public class TaskGroup {
     public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
-    */
+
     public String getGroupTitle() {
         return groupTitle;
     }

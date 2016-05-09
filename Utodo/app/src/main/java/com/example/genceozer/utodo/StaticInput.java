@@ -1,5 +1,6 @@
 package com.example.genceozer.utodo;
 
+import com.example.genceozer.utodo.entities.Task;
 import com.example.genceozer.utodo.entities.TaskGroup;
 
 import java.util.Calendar;
@@ -31,25 +32,24 @@ public class StaticInput {
         cal3.set(Calendar.DAY_OF_MONTH, 27);
 
         taskGroups = new ArrayList<>();
-        taskGroups.add(new TaskGroup("Home", 4, cal3.getTime(), 1));
-        taskGroups.add(new TaskGroup("Work", 20, cal3.getTime(), 2));
-        taskGroups.add(new TaskGroup("Sport Buddies",5,cal3.getTime(),3));
-        taskGroups.add(new TaskGroup("Home",4,cal3.getTime(),1));
-        taskGroups.add(new TaskGroup("Work",20,cal3.getTime(),2));
-        taskGroups.add(new TaskGroup("Sport Buddies",5,cal3.getTime(),3));
-        taskGroups.add(new TaskGroup("Home",4,cal3.getTime(),1));
-        taskGroups.add(new TaskGroup("Work",20,cal3.getTime(),2));
-        taskGroups.add(new TaskGroup("Sport Buddies",5,cal3.getTime(),3));
-        taskGroups.add(new TaskGroup("Home",4,cal3.getTime(),1));
-        taskGroups.add(new TaskGroup("Work",20,cal3.getTime(),2));
-        taskGroups.add(new TaskGroup("Sport Buddies",5,cal3.getTime(),3));
-        taskGroups.add(new TaskGroup("Home",4,cal3.getTime(),1));
-        taskGroups.add(new TaskGroup("Work",20,cal3.getTime(),2));
-        taskGroups.add(new TaskGroup("Sport Buddies",5,cal3.getTime(),3));
-        taskGroups.add(new TaskGroup("Home",4,cal3.getTime(),1));
-        taskGroups.add(new TaskGroup("Work",20,cal3.getTime(),2));
-        taskGroups.add(new TaskGroup("Sport Buddies",5,cal3.getTime(),3));
+        taskGroups.add(new TaskGroup("Home", 4, cal3.getTime(), 1,null));
+        taskGroups.add(new TaskGroup("Work", 20, cal3.getTime(), 2,null));
+        taskGroups.add(new TaskGroup("Sport Buddies",5,cal3.getTime(),3,null));
 
         return taskGroups;
+    }
+
+    public List<Task> getTaskStatic(){
+
+        Calendar cal3 = Calendar.getInstance();
+        cal3.set(Calendar.YEAR,2015);
+        cal3.set(Calendar.MONTH,7);
+        cal3.set(Calendar.DAY_OF_MONTH, 27);
+
+        List<Task> list = new ArrayList<Task>();
+        list.add(new Task(cal3.getTime(),"Do market Shopping","Buy eggs and stuff",false,null));
+        list.add(new Task(cal3.getTime(),"Complete the assignemnet","Do the backend",true,null));
+
+        return list;
     }
 }

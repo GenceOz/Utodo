@@ -17,8 +17,6 @@ import java.util.List;
 /**
  * Created by genceozer on 05/05/16.
  */
-
-//This class is used for filling the Task Group List with the data parameter
 public class TaskGroupListAdapter extends ArrayAdapter<TaskGroup> {
 
     public TaskGroupListAdapter(Context ctx, List<TaskGroup> taskGroups){

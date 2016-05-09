@@ -24,7 +24,8 @@
         <activity android:name=".taskgroup.CreateTaskGroupActivity"
             android:theme="@style/ActionBarTheme"/>
 
-        <activity android:name=".task.TaskActivity"></activity>
+        <activity android:name=".task.TaskActivity"
+            android:theme="@style/ActionBarTheme"></activity>
     </application>
 
 </manifest>

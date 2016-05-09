@@ -5,12 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 
 import com.example.genceozer.utodo.R;
 import com.example.genceozer.utodo.StaticInput;
 import com.example.genceozer.utodo.entities.TaskGroup;
+import com.example.genceozer.utodo.task.TaskActivity;
 
 import java.util.List;
 
@@ -33,6 +36,14 @@ public class TaskGroupActivity extends AppCompatActivity {
 
         TaskGroupListAdapter adp = new TaskGroupListAdapter(this, taskGroups);
         taskGroupListView.setAdapter(adp);
+
+        taskGroupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(TaskGroupActivity.this,TaskActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 
@@ -62,5 +73,7 @@ public class TaskGroupActivity extends AppCompatActivity {
 
         return true;
     }
+
+
 
 }
