@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.genceozer.utodo">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,16 +18,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".login_register.RegisterActivity" />
-
         <activity
             android:name=".taskgroup.TaskGroupActivity"
             android:theme="@style/ActionBarTheme" />
-
-        <activity android:name=".taskgroup.CreateTaskGroupActivity"
-            android:theme="@style/ActionBarTheme"/>
-
-        <activity android:name=".task.TaskActivity"
-            android:theme="@style/ActionBarTheme"></activity>
+        <activity
+            android:name=".taskgroup.CreateTaskGroupActivity"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".task.TaskActivity"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".subtask.SubtaskActivity"
+            android:theme="@style/ActionBarTheme" />
+        <activity android:name=".task.CreateTasks" />
+        <activity android:name=".task.TaskInfoActivity"></activity>
     </application>
 
 </manifest>

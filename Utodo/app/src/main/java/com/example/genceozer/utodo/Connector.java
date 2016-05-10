@@ -1,10 +1,10 @@
 package com.example.genceozer.utodo;
-/*
+
 import com.example.genceozer.utodo.entities.Task;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/*
 //Singleton class
 public class Connector{
 	private static Connector sharedInstance = new Connector();

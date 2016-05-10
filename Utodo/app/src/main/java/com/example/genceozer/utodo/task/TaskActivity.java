@@ -14,6 +14,7 @@ import com.example.genceozer.utodo.R;
 import com.example.genceozer.utodo.StaticInput;
 import com.example.genceozer.utodo.entities.Task;
 import com.example.genceozer.utodo.login_register.LoginActivity;
+import com.example.genceozer.utodo.subtask.SubtaskActivity;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class TaskActivity extends AppCompatActivity {
                     Intent i = new Intent(TaskActivity.this, LoginActivity.class);
                     startActivity(i);
                 }else{
-                    Intent i = new Intent(TaskActivity.this, TaskActivity.class);
+                    Intent i = new Intent(TaskActivity.this, SubtaskActivity.class);
                     startActivity(i);
                 }
             }
@@ -63,7 +64,9 @@ public class TaskActivity extends AppCompatActivity {
         switch(item.getItemId()) {
 
             //Create task group menu item
-            case R.id.mnCreateGroup:
+            case R.id.taskInfo:
+                    Intent i = new Intent(TaskActivity.this,CreateTasks.class);
+                    startActivity(i);
 
                 break;
         }
