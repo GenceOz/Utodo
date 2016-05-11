@@ -2,6 +2,7 @@ package com.example.genceozer.utodo.entities;
 
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by genceozer on 05/05/16.
@@ -10,17 +11,25 @@ public class Task {
 
     private Date dueDate;
     private String title;
-    private String description;
+    private String desc;
     private boolean isDone;
     private ArrayList<SubTask> subTasks;
 
     public Task() {
     }
 
-    public Task(Date dueDate, String title, String description, boolean isDone, ArrayList<SubTask> subTasks) {
+    public Task(Map<String,Object> responseMap){
+        //handle date
+        this.title = responseMap.get("title").toString();
+        this.desc = responseMap.get("desc").toString();
+        this.isDone = (Boolean)responseMap.get("status");
+        this.subTasks = (ArrayList<SubTask>) responseMap.get("subTasks"); //Resolve
+    }
+
+    public Task(Date dueDate, String title, String desc, boolean isDone, ArrayList<SubTask> subTasks) {
         this.dueDate = dueDate;
         this.title = title;
-        this.description = description;
+        this.desc = desc;
         this.isDone = isDone;
         this.subTasks = subTasks;
     }
@@ -51,11 +60,11 @@ public class Task {
     }
 
     public String getDescription() {
-        return description;
+        return desc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String desc) {
+        this.desc = desc;
     }
 
     public boolean isDone() {

@@ -5,27 +5,27 @@ package com.example.genceozer.utodo.entities;
  */
 public class User {
 
-    private int userId;
+    private String userId;
     private String username;
-    private String password;
+//    private String password;
     private String email;
 
     public User() {
     }
 
-    public User(int userId, String username, String password, String email) {
+    public User(String userId, String username, String password, String email) {
 
         this.userId = userId;
         this.username = username;
-        this.password = password;
+//        this.password = password;
         this.email = email;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -37,13 +37,13 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     public String getEmail() {
         return email;

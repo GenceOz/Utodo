@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import com.firebase.client.Firebase;
 
 import com.example.genceozer.utodo.R;
 import com.example.genceozer.utodo.taskgroup.TaskGroupActivity;
@@ -14,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        Firebase.setAndroidContext(this);
 
 
     }

@@ -31,8 +31,8 @@ public class CreateTaskGroupActivity extends AppCompatActivity {
         //Has to be replaced after prototyping
 
         contributorList = new ArrayList<>();
-        contributorList.add(new User(1,"Gence","1","gence@gmail.com"));
-        contributorList.add(new User(1, "Alp", "2", "alp@gmail.com"));
+        contributorList.add(new User("1","Gence","1","gence@gmail.com"));
+        contributorList.add(new User("1", "Alp", "2", "alp@gmail.com"));
 
 
         CreateTaskGroupListAdapter adp = new CreateTaskGroupListAdapter(this, contributorList);
@@ -62,7 +62,7 @@ public class CreateTaskGroupActivity extends AppCompatActivity {
     }
 
     public void addUserToContributorList(View v){
-        contributorList.add(new User(1,"Gence","1","gence@gmail.com"));
+        contributorList.add(new User("1","Gence","1","gence@gmail.com"));
         ((BaseAdapter)contributorListView.getAdapter()).notifyDataSetChanged();
 
     }

@@ -32,6 +32,7 @@
             android:theme="@style/ActionBarTheme" />
         <activity android:name=".task.CreateTasks" />
         <activity android:name=".task.TaskInfoActivity"></activity>
+        <uses-permission android:name="android.permission.INTERNET" />
     </application>
 
 </manifest>

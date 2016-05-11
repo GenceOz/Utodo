@@ -1,10 +1,11 @@
 package com.example.genceozer.utodo;
 
 import com.example.genceozer.utodo.entities.Task;
-
+import com.example.genceozer.utodo.entities.User;
 import java.util.HashMap;
 import java.util.Map;
-/*
+import com.firebase.client.*;
+
 //Singleton class
 public class Connector{
 	private static Connector sharedInstance = new Connector();
@@ -22,53 +23,84 @@ public class Connector{
 //User Methods
    public void getAllUsers(){
    		rootRef.child("users").addChildEventListener(new ChildEventListener() {
-   			@Override
-   			public void onChildAdded(DataSnapshot snapshot, String previousChildKey){
-   				User user = snapshot.getValue(User.class); //May not work properly. Add "public User(){}" empty constructer to Users.java if fails.
-   				//Invoke necessary methods.
-   			}
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                User user = dataSnapshot.getValue(User.class); //May not work properly. Add "public User(){}" empty constructer to Users.java if fails.
+                //Invoke necessary methods.
+            }
 
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
    		});
    }
 
    public void getUser(String username){
-   		rootRef.child("users/" + username).addValueEventListener(new ValueEventListener()){
-   			@Override
-   			public void onDataChange(DataSnapshot snapshot){
-   				User user = snapshot.getValue(User.class); //Add User.java a constructor which takes a Map as parameter.
-   				//Invoke necessary methods.
-   			}
+   		rootRef.child("users/" + username).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class); //Add User.java a constructor which takes a Map as parameter.
+                //Invoke necessary methods.
+            }
 
-   		}
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
    }
 
-   public void userSignUp(String username, String email, String password){
-   		rootRef.child("users/" + username).addValueEventListener(new ValueEventListener()){
-   			@Override
-   			public void onDataChange(DataSnapshot snapshot){
-   				if (snapshot.getValue() != null) {
-   					System.out.println("A user with user name: " + this.username + " already exists.");
-   				}
-   				else{
-   					rootRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>)(){
-   						@Override
-   						public void onSuccess(Map<String, Object> result){
-   							System.out.println("User with username \"" + username + "\" has been created.");
-   						}
+   public void userSignUp(final String username, final String email, final String password){
+   		rootRef.child("users/" + username).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    System.out.println("A user with user name: " + username + " already exists.");
+                }
+                else{
+                    rootRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>(){
+                        @Override
+                        public void onSuccess(Map<String, Object> result){
+                            System.out.println("User with username \"" + username + "\" has been created.");
 
-   						User newUser = new User(result.get("uid"), username, null, email); //We do not need to know User passwords.
+                            User newUser = new User(dataSnapshot.getKey(), username, null, email); //We do not need to know User passwords.
+                            rootRef.child("users").setValue(newUser);
+                        }
+                        @Override
+                        public void onError(FirebaseError firebaseError) {
+                            System.out.println("Error while signing up.");
+                        }
+                    });
+                }
+            }
 
-   						rootRef.child("users").setValue(newUser);
-   					}
-   				}
-   			}
-   		}
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+   		});
    }
 
    public void userLogIn(String username, String email, String password){
    		rootRef.authWithPassword(email, password, new Firebase.AuthResultHandler(){
 			@Override
-			public void onAuthentication(AuthData authData){
+			public void onAuthenticated(AuthData authData){
 				System.out.println("User logged in.");
 				//Invoke methods after log in.
 			}
@@ -77,7 +109,7 @@ public class Connector{
 			public void onAuthenticationError(FirebaseError error){
 				System.out.println("Something went wrong while logging in.");
 			}
-		})
+		});
    }
 
 //Group Methods
@@ -90,25 +122,32 @@ public class Connector{
    }
 
    public void getGroup(String groupID){
-      rootRef.child("groups/" + groupID).addValueEventListener(new ValueEventListener()){
-            @Override
-            public void onDataChange(DataSnapshot snapshot){
-               //Add group class and construct group with HashMap
-               //Invoke necessary methods.
-            }
+      rootRef.child("groups/" + groupID).addValueEventListener(new ValueEventListener() {
+          @Override
+          public void onDataChange(DataSnapshot dataSnapshot) {
 
-      }
+          }
+
+          @Override
+          public void onCancelled(FirebaseError firebaseError) {
+
+          }
+      });
    }
 
    public void getTasks(String groupID){
-      rootRef.child("groups/" + groupID + "tasks").addValueEventListener(new ValueEventListener()){
-            @Override
-            public void onDataChange(DataSnapshot snapshot){
-               Task newTask = new Task(snapshot.getValue()) //Constructor with HashMap
-               //Invoke necessary methods.
-            }
+      rootRef.child("groups/" + groupID + "tasks").addValueEventListener(new ValueEventListener() {
+          @Override
+          public void onDataChange(DataSnapshot dataSnapshot) {
+              Task newTask = new Task((Map<String, Object>) dataSnapshot.getValue()); //Constructor with HashMap. Resolve.
+              //Invoke necessary methods.
+          }
 
-         }
+          @Override
+          public void onCancelled(FirebaseError firebaseError) {
+
+          }
+      });
    }
 
    public void inviteUser(String groupID, String groupName, String username){
@@ -125,7 +164,7 @@ public class Connector{
    public void createTask(String groupID, String title, String desc){
    		Firebase postRef = rootRef.child("groups/" + groupID);
 
-   		Map<String, String> post = new HashMap<String, Object>();
+   		Map<String, Object> post = new HashMap<String, Object>();
    		//Get current date. post.put("timestamp", date)
    		post.put("title", title);
    		post.put("desc", desc);
@@ -134,10 +173,10 @@ public class Connector{
 
    }
 
-   public void createSubtask(String title, String desc){
+   public void createSubtask(String groupID, String title, String desc){
    		Firebase postRef = rootRef.child("groups/" + groupID + "/subtasks");
 
-   		Map<String, String> post = new HashMap<String, Object>();
+   		Map<String, Object> post = new HashMap<String, Object>();
    		//Get current date. post.put("timestamp", date)
    		post.put("title", title);
    		post.put("desc", desc);
@@ -145,4 +184,3 @@ public class Connector{
    		postRef.push().setValue(post);
    }
 }
-*/
