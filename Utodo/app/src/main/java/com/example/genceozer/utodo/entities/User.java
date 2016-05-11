@@ -7,17 +7,15 @@ public class User {
 
     private String userId;
     private String username;
-//    private String password;
     private String email;
 
     public User() {
     }
 
-    public User(String userId, String username, String password, String email) {
+    public User(String userId, String username, String email) {
 
         this.userId = userId;
         this.username = username;
-//        this.password = password;
         this.email = email;
     }
 
@@ -37,13 +35,6 @@ public class User {
         this.username = username;
     }
 
-//    public String getPassword() {
-//        return password;
-//    }
-
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 
     public String getEmail() {
         return email;

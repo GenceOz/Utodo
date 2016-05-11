@@ -36,7 +36,8 @@
         <EditText
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:id="@+id/usernameText"/>
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +55,8 @@
         <EditText
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:id="@+id/emailText"/>
     </LinearLayout>
 
     <LinearLayout
@@ -72,12 +74,15 @@
         <EditText
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:id="@+id/passwordText"/>
     </LinearLayout>
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:onClick="register"/>
+
 </LinearLayout>

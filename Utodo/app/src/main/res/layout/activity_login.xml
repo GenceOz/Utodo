@@ -30,7 +30,8 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:padding="@dimen/activity_vertical_margin"
-        android:hint="Your Email"/>
+        android:hint="Your Email"
+        android:id="@+id/email"/>
 
 
     <EditText
@@ -38,7 +39,8 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_vertical_margin"
         android:inputType="textPassword"
-        android:hint="Your password"/>
+        android:hint="Your password"
+        android:id="@+id/password"/>
 
     <Button
         android:layout_width="200dp"

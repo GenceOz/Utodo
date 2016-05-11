@@ -97,7 +97,7 @@ public class Connector{
    		});
    }
 
-   public void userLogIn(String username, String email, String password){
+   public void userLogIn(String email, String password){ //Username parameter removed
    		rootRef.authWithPassword(email, password, new Firebase.AuthResultHandler(){
 			@Override
 			public void onAuthenticated(AuthData authData){
