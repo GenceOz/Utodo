@@ -26,18 +26,18 @@ public class TaskGroupActivity extends AppCompatActivity implements Connector.Co
 
     static List<TaskGroup> taskGroups;
     static ListView taskGroupListView;
+    static List<Object> taskIDs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_group);
         taskGroups = new ArrayList<>();
-
+        taskIDs = new ArrayList<>();
         taskGroupListView = (ListView)findViewById(R.id.taskGroupList);
 
         //This part of the code is for static input for prototyping
         //Has to be replaced after prototyping
-        Log.i("DEV", "burasi iyi hocam");
 
 
         Connector.getInstance().getAllGroups(Connector.getInstance().loggedUser.getUsername());
@@ -50,6 +50,7 @@ public class TaskGroupActivity extends AppCompatActivity implements Connector.Co
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(TaskGroupActivity.this,TaskActivity.class);
+                i.putExtra("gid",taskIDs.get(position).toString());
                 startActivity(i);
             }
         });
@@ -84,8 +85,9 @@ public class TaskGroupActivity extends AppCompatActivity implements Connector.Co
     }
 
     @Override
-    public void taskLoaded(TaskGroup taskGroup){
+    public void taskLoaded(TaskGroup taskGroup, Object gid){
         taskGroups.add(taskGroup);
+        taskIDs.add(gid);
         ((BaseAdapter) taskGroupListView.getAdapter()).notifyDataSetChanged();
     }
 

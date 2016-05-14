@@ -2,6 +2,7 @@ package com.example.genceozer.utodo.task;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +14,16 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.example.genceozer.utodo.Connector;
 import com.example.genceozer.utodo.R;
 import com.example.genceozer.utodo.entities.SubTask;
 import com.example.genceozer.utodo.entities.Task;
+import com.example.genceozer.utodo.login_register.RegisterActivity;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class CreateTasks extends AppCompatActivity {
+public class CreateTasks extends AppCompatActivity implements Connector.ConnectorCreateTask {
 
     EditText name,description;
     static Date taskDate;
@@ -29,6 +32,8 @@ public class CreateTasks extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_tasks);
+
+        Connector.getInstance().createTaskDelegate = this;
 
         name = (EditText)findViewById(R.id.taskName);
         description = (EditText) findViewById(R.id.taskDescription);
@@ -80,12 +85,20 @@ public class CreateTasks extends AppCompatActivity {
         }
     }
 
-    public void createTask(){
+    public void createTask(View v){
         Task newTask = new Task();
         newTask.setTitle(name.getText().toString());
         newTask.setDescription(description.getText().toString());
         newTask.setIsDone(false);
         newTask.setSubTasks(null);
         newTask.setDueDate(null);
+
+        Intent i = getIntent();
+        Connector.getInstance().createTask(i.getStringExtra("gid"),newTask);
+    }
+
+    public void taskCreated(){
+        Intent i = new Intent(this, TaskActivity.class);
+        startActivity(i);
     }
 }

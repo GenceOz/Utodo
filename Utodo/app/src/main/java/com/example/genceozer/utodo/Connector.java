@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.example.genceozer.utodo.login_register.LoginActivity;
 import com.example.genceozer.utodo.login_register.RegisterActivity;
+import com.example.genceozer.utodo.task.CreateTasks;
 import com.example.genceozer.utodo.task.TaskActivity;
 import com.example.genceozer.utodo.taskgroup.TaskGroupActivity;
 import com.firebase.client.*;
@@ -35,14 +36,14 @@ public class Connector{
     public RegisterActivity registerActivityDelegate = new RegisterActivity();
 
     public interface ConnectorTaskGroup{
-        public void taskLoaded(TaskGroup taskGroup);
+        public void taskLoaded(TaskGroup taskGroup, Object gid);
     }
     public TaskGroupActivity taskGroupDelegate = new TaskGroupActivity();
 
     public interface ConnectorCreateTask{
         public void taskCreated();
     }
-    public TaskActivity taskActivityDelegate = new TaskActivity();
+    public CreateTasks createTaskDelegate = new CreateTasks();
 
     //End Delegates******
 
@@ -197,7 +198,7 @@ public class Connector{
 	   	postRef.push().setValue(post);
    }
 
-   public void getGroup(String groupID){
+   public void getGroup(final String groupID){
       rootRef.child("groups/" + groupID).addValueEventListener(new ValueEventListener() {
           @Override
           public void onDataChange(DataSnapshot dataSnapshot) {
@@ -210,7 +211,7 @@ public class Connector{
               tGroup.setGroupTitle(dataSnapshot.child("groupTitle").getValue().toString());
               tGroup.setMembers(tempList);
 
-              taskGroupDelegate.taskLoaded(tGroup);
+              taskGroupDelegate.taskLoaded(tGroup, groupID);
           }
 
           @Override
@@ -228,7 +229,7 @@ public class Connector{
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot2) {
                         getGroup(dataSnapshot2.getKey());
-                        Log.i("DEV", dataSnapshot2.getKey());
+
                     }
 
                     @Override
@@ -333,7 +334,7 @@ public class Connector{
         post.put("isDone", task.isDone());
    		postRef.push().setValue(post);
 
-       createSubtask(groupID, task.getSubTasks());
+//       createSubtask(groupID, task.getSubTasks());
 
    }
 

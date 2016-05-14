@@ -65,7 +65,10 @@ public class TaskActivity extends AppCompatActivity {
 
             //Create task group menu item
             case R.id.taskInfo:
-                    Intent i = new Intent(TaskActivity.this,CreateTasks.class);
+                    Intent i = getIntent();
+                    String gid = i.getStringExtra("gid");
+                    i = new Intent(TaskActivity.this,CreateTasks.class);
+                    i.putExtra("gid", gid);
                     startActivity(i);
 
                 break;
