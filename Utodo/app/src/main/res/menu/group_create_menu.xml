@@ -2,5 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android:item android:id="@+id/mcFinish" android:title="Finish" app:showAsAction="ifRoom|withText"/>
+    <android:item android:id="@+id/finishButton" android:title="Finish" app:showAsAction="ifRoom|withText"/>
 </menu>

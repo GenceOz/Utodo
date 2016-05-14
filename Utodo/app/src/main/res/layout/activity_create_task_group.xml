@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Group Name"
+        android:id="@+id/taskGroupTitleText"
         android:textSize="18dp"
         android:textStyle="bold"
         android:padding="@dimen/activity_vertical_margin"
@@ -28,7 +29,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter participant email"
+            android:hint="Enter participant username"
+            android:id="@+id/contributorText"
             android:layout_weight="0.9"/>
 
         <Button

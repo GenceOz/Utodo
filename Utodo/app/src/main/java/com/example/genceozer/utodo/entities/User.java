@@ -5,21 +5,21 @@ package com.example.genceozer.utodo.entities;
  */
 public class User {
 
-    private String userId;
+    private Object userId;
     private String username;
     private String email;
 
     public User() {
     }
 
-    public User(String userId, String username, String email) {
+    public User(Object userId, String username, String email) {
 
         this.userId = userId;
         this.username = username;
         this.email = email;
     }
 
-    public String getUserId() {
+    public Object getUserId() {
         return userId;
     }
 

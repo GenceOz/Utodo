@@ -28,9 +28,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="textPersonName"
         android:padding="@dimen/activity_vertical_margin"
-        android:hint="Your Email"
+        android:hint="Username"
         android:id="@+id/email"/>
 
 
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_vertical_margin"
         android:inputType="textPassword"
-        android:hint="Your password"
+        android:hint="Password"
         android:id="@+id/password"/>
 
     <Button

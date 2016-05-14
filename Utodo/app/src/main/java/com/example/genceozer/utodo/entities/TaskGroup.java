@@ -9,23 +9,20 @@ import java.util.List;
 public class TaskGroup {
 
     String groupTitle;
-    Integer groupMemberCount;
+    List<String> userList;
     List<Task> taskList;
-    Integer taskGroupId;
-    Date incomingDeadline;
+//    Date incomingDeadline;
 
     public TaskGroup(){
 
     }
-    public TaskGroup(String groupTitle,Integer groupMemberCount,Date incomingDeadline, Integer taskGroupId, List<Task> taskList){
+    public TaskGroup(String groupTitle,List<String> userList, List<Task> taskList){
 
         this.groupTitle = groupTitle;
-        this.groupMemberCount = groupMemberCount;
-        this.taskGroupId = taskGroupId;
+        this.userList = userList;
         this.taskList = taskList;
-        this.incomingDeadline = incomingDeadline;
+//        this.incomingDeadline = incomingDeadline;
     }
-
 
     public List<Task> getTaskList() {
         return taskList;
@@ -43,19 +40,19 @@ public class TaskGroup {
         this.groupTitle = groupTitle;
     }
 
-    public Integer getGroupMemberCount() {
-        return groupMemberCount;
+    public List<String> getUserList() {
+        return userList;
     }
 
-    public void setGroupMemberCount(Integer groupMemberCount) {
-        this.groupMemberCount = groupMemberCount;
+    public void setUserList(List<String> userList) {
+        this.userList = userList;
     }
 
-    public Date getIncomingDeadline() {
-        return incomingDeadline;
-    }
-
-    public void setIncomingDeadline(Date incomingDeadline) {
-        this.incomingDeadline = incomingDeadline;
-    }
+//    public Date getIncomingDeadline() {
+//        return incomingDeadline;
+//    }
+//
+//    public void setIncomingDeadline(Date incomingDeadline) {
+//        this.incomingDeadline = incomingDeadline;
+//    }
 }

@@ -3,14 +3,18 @@ package com.example.genceozer.utodo.taskgroup;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.genceozer.utodo.Connector;
 import com.example.genceozer.utodo.R;
+import com.example.genceozer.utodo.entities.TaskGroup;
 import com.example.genceozer.utodo.entities.User;
 
 import java.util.ArrayList;
@@ -18,7 +22,8 @@ import java.util.List;
 
 public class CreateTaskGroupActivity extends AppCompatActivity {
 
-    List<User> contributorList;
+    EditText contributorName, taskGroupTitle;
+    List<String> contributorList;
     ListView contributorListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +31,10 @@ public class CreateTaskGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_task_group);
 
         contributorListView = (ListView)findViewById(R.id.contributorListView);
-
-        //This part of the code is for static input for prototyping
-        //Has to be replaced after prototyping
+        contributorName = (EditText)findViewById(R.id.contributorText);
+        taskGroupTitle = (EditText)findViewById(R.id.taskGroupTitleText);
 
         contributorList = new ArrayList<>();
-        contributorList.add(new User("1","Gence","1","gence@gmail.com"));
-        contributorList.add(new User("1", "Alp", "2", "alp@gmail.com"));
-
 
         CreateTaskGroupListAdapter adp = new CreateTaskGroupListAdapter(this, contributorList);
         contributorListView.setAdapter(adp);
@@ -51,8 +52,9 @@ public class CreateTaskGroupActivity extends AppCompatActivity {
         switch(item.getItemId()) {
 
             //Create finish forming group menu item
-            case R.id.mnCreateGroup:
-
+            case R.id.finishButton:
+                TaskGroup newTaskGroup = new TaskGroup(taskGroupTitle.getText().toString(), contributorList, null);
+                Connector.getInstance().createTaskGroup(newTaskGroup);
                 Intent i = new Intent(this,TaskGroupActivity.class);
                 startActivity(i);
                 break;
@@ -62,7 +64,8 @@ public class CreateTaskGroupActivity extends AppCompatActivity {
     }
 
     public void addUserToContributorList(View v){
-        contributorList.add(new User("1","Gence","1","gence@gmail.com"));
+        //Check validity
+        contributorList.add(contributorName.getText().toString());
         ((BaseAdapter)contributorListView.getAdapter()).notifyDataSetChanged();
 
     }

@@ -18,9 +18,9 @@ import java.util.List;
 /**
  * Created by genceozer on 06/05/16.
  */
-public class CreateTaskGroupListAdapter extends ArrayAdapter<User> {
+public class CreateTaskGroupListAdapter extends ArrayAdapter<String> {
 
-    public CreateTaskGroupListAdapter(Context ctx, List<User> contributors){
+    public CreateTaskGroupListAdapter(Context ctx, List<String> contributors){
 
         super(ctx,android.R.layout.simple_list_item_1,contributors);
 
@@ -48,7 +48,7 @@ public class CreateTaskGroupListAdapter extends ArrayAdapter<User> {
 
         holder = (ViewHolder)row.getTag();
 
-        holder.txtUsername.setText(getItem(position).getUsername().toString());
+        holder.txtUsername.setText(getItem(position));
 
         return row;
 

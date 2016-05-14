@@ -10,14 +10,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 
+import com.example.genceozer.utodo.Connector;
 import com.example.genceozer.utodo.R;
 import com.example.genceozer.utodo.StaticInput;
+import com.example.genceozer.utodo.entities.Task;
 import com.example.genceozer.utodo.entities.TaskGroup;
 import com.example.genceozer.utodo.task.TaskActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TaskGroupActivity extends AppCompatActivity {
+public class TaskGroupActivity extends AppCompatActivity implements Connector.ConnectorTaskGroup {
 
     List<TaskGroup> taskGroups;
     ListView taskGroupListView;
@@ -30,9 +33,9 @@ public class TaskGroupActivity extends AppCompatActivity {
 
         //This part of the code is for static input for prototyping
         //Has to be replaced after prototyping
-        StaticInput input = new StaticInput(null);
-        taskGroups = input.getTaskGroupStatic();
+        Connector.getInstance().getAllGroups(Connector.getInstance().loggedUser.getUsername());
 
+        taskGroups = new ArrayList<>();
 
         TaskGroupListAdapter adp = new TaskGroupListAdapter(this, taskGroups);
         taskGroupListView.setAdapter(adp);
@@ -74,6 +77,10 @@ public class TaskGroupActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void taskLoaded(TaskGroup taskGroup){
+        taskGroups.add(taskGroup);
+    }
 
 
 }

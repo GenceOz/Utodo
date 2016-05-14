@@ -33,9 +33,9 @@ public class StaticInput {
         cal3.set(Calendar.DAY_OF_MONTH, 27);
 
         taskGroups = new ArrayList<>();
-        taskGroups.add(new TaskGroup("Home", 4, cal3.getTime(), 1,null));
-        taskGroups.add(new TaskGroup("Work", 20, cal3.getTime(), 2,null));
-        taskGroups.add(new TaskGroup("Sport Buddies",5,cal3.getTime(),3,null));
+//        taskGroups.add(new TaskGroup("Home", 4, cal3.getTime(), 1,null));
+//        taskGroups.add(new TaskGroup("Work", 20, cal3.getTime(), 2,null));
+//        taskGroups.add(new TaskGroup("Sport Buddies",5,cal3.getTime(),3,null));
 
         return taskGroups;
     }
