@@ -32,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity implements Connector.Con
 
     @Override
     public void userSignedUp(){
-        System.out.println("HAHAHHA!");
         finish();
     }
 

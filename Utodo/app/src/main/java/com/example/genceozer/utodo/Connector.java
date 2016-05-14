@@ -102,20 +102,21 @@ public class Connector{
    		rootRef.child("users/" + username).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
+                Log.i("Dev", "Table changed");
                 if (dataSnapshot.getValue() != null) {
                     System.out.println("A user with user name: " + username + " already exists.");
-                }
-                else{
-                    rootRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>(){
+                } else {
+                    rootRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
                         @Override
-                        public void onSuccess(Map<String, Object> result){
+                        public void onSuccess(Map<String, Object> result) {
                             System.out.println("User with username \"" + username + "\" has been created.");
 
                             User newUser = new User(result.get("uid"), username, email);
-                            rootRef.child("users/"+username).setValue(newUser);
+                            rootRef.child("users/" + username).setValue(newUser);
 
                             registerActivityDelegate.userSignedUp();
                         }
+
                         @Override
                         public void onError(FirebaseError firebaseError) {
                             System.out.println(firebaseError);
@@ -130,7 +131,7 @@ public class Connector{
             public void onCancelled(FirebaseError firebaseError) {
 
             }
-   		});
+        });
    }
 
    public void userLogIn(final String username, final String password){ //Username parameter removed
@@ -252,10 +253,10 @@ public class Connector{
    		post.put("groupname", groupName);
    		post.put("invitor", username);
 
-   		postRef.push().setValue(post);
+       postRef.push().setValue(post);
    }
 
-    public void createTaskGroup(final TaskGroup taskGroup){
+    public void createTaskGroup(final TaskGroup taskGroup, final List<String> contributers){
 
         Firebase postRef = rootRef.child("groups");
 
@@ -267,7 +268,7 @@ public class Connector{
                 } else {
                     System.out.println("Data saved successfully.");
 
-                    for (String username : taskGroup.getUserList() ){
+                    for (String username : contributers ){
                         inviteUser(firebase.getKey() , taskGroup.getGroupTitle(), username);
                         Log.i("Dev", username);
                     }

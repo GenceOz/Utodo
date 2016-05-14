@@ -53,8 +53,10 @@ public class CreateTaskGroupActivity extends AppCompatActivity {
 
             //Create finish forming group menu item
             case R.id.finishButton:
-                TaskGroup newTaskGroup = new TaskGroup(taskGroupTitle.getText().toString(), contributorList, null);
-                Connector.getInstance().createTaskGroup(newTaskGroup);
+                List<String> userList = new ArrayList<>();
+                userList.add(Connector.getInstance().loggedUser.getUsername());
+                TaskGroup newTaskGroup = new TaskGroup(taskGroupTitle.getText().toString(), userList, null);
+                Connector.getInstance().createTaskGroup(newTaskGroup,contributorList);
                 Intent i = new Intent(this,TaskGroupActivity.class);
                 startActivity(i);
                 break;
