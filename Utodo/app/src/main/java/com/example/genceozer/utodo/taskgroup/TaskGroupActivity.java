@@ -25,7 +25,7 @@ import java.util.List;
 public class TaskGroupActivity extends AppCompatActivity implements Connector.ConnectorTaskGroup {
 
     static List<TaskGroup> taskGroups;
-    ListView taskGroupListView;
+    static ListView taskGroupListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,17 +85,11 @@ public class TaskGroupActivity extends AppCompatActivity implements Connector.Co
 
     @Override
     public void taskLoaded(TaskGroup taskGroup){
-
-        if(taskGroup == null){
-            Log.i("Dev","It is");
-        }
-        Log.i("Dev", "Here");
-
-        if(taskGroups == null){
-            Log.i("Dev","It is y");
-        }
         taskGroups.add(taskGroup);
+        ((BaseAdapter) taskGroupListView.getAdapter()).notifyDataSetChanged();
     }
+
+
 
 
 }

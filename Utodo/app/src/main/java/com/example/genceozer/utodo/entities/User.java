@@ -12,6 +12,7 @@ public class User {
     private String username;
     private String email;
     private Map<String,Object> groupList;
+    private List<Object> invitations;
 
     public User() {
     }
@@ -30,6 +31,14 @@ public class User {
 
     public void setGroupList(Map<String, Object> groupList) {
         this.groupList = groupList;
+    }
+
+    public List<Object> getInvitations() {
+        return invitations;
+    }
+
+    public void setInvitations(List<Object> invitations) {
+        this.invitations = invitations;
     }
 
     public Object getUserId() {

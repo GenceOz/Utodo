@@ -138,10 +138,8 @@ public class Connector{
        rootRef.child("users/" + username).addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(final DataSnapshot dataSnapshot) {
-               User user = dataSnapshot.getValue(User.class);
-               System.out.println(user.getEmail());
                //Invoke necessary methods.
-               final String email = user.getEmail();
+               final String email = dataSnapshot.child("email").getValue().toString();
 
                if (dataSnapshot.getChildrenCount() > 0){
                    rootRef.authWithPassword(email, password, new Firebase.AuthResultHandler(){
@@ -150,6 +148,12 @@ public class Connector{
                            loggedUser.setEmail(email);
                            loggedUser.setUsername(username);
                            loggedUser.setUserId(dataSnapshot.getKey());
+
+                           List<Object> tempList = new ArrayList<>();
+                           for (DataSnapshot postSnapshot : dataSnapshot.child("invitations").getChildren()){
+                               tempList.add(postSnapshot.getValue());
+                           }
+                           loggedUser.setInvitations(tempList);
                            //Invoke methods after log in.
                            loginActivityDelegate.userLoggedIn();
                        }
