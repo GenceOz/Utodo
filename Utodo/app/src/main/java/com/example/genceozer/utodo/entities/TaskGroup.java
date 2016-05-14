@@ -1,5 +1,6 @@
 package com.example.genceozer.utodo.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,17 +10,17 @@ import java.util.List;
 public class TaskGroup {
 
     String groupTitle;
-    List<String> userList;
+    List<String> members;
     List<Task> taskList;
 //    Date incomingDeadline;
 
     public TaskGroup(){
-
+        members = new ArrayList<>();
     }
-    public TaskGroup(String groupTitle,List<String> userList, List<Task> taskList){
+    public TaskGroup(String groupTitle,List<String> members, List<Task> taskList){
 
         this.groupTitle = groupTitle;
-        this.userList = userList;
+        this.members = members;
         this.taskList = taskList;
 //        this.incomingDeadline = incomingDeadline;
     }
@@ -40,12 +41,12 @@ public class TaskGroup {
         this.groupTitle = groupTitle;
     }
 
-    public List<String> getUserList() {
-        return userList;
+    public List<String> getMembers() {
+        return members;
     }
 
-    public void setUserList(List<String> userList) {
-        this.userList = userList;
+    public void setMembers(List<String> members) {
+        this.members = members;
     }
 
 //    public Date getIncomingDeadline() {

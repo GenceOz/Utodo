@@ -3,6 +3,7 @@ package com.example.genceozer.utodo.taskgroup;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,7 @@ public class TaskGroupActivity extends AppCompatActivity implements Connector.Co
 
         //This part of the code is for static input for prototyping
         //Has to be replaced after prototyping
+        Log.i("DEV", "burasi iyi hocam");
         Connector.getInstance().getAllGroups(Connector.getInstance().loggedUser.getUsername());
 
         taskGroups = new ArrayList<>();

@@ -190,7 +190,15 @@ public class Connector{
       rootRef.child("groups/" + groupID).addValueEventListener(new ValueEventListener() {
           @Override
           public void onDataChange(DataSnapshot dataSnapshot) {
+              List<String> tempList = new ArrayList<>();
+              for (DataSnapshot postSnapshot : dataSnapshot.child("members").getChildren()){
+                  tempList.add(postSnapshot.getValue().toString());
+              }
 
+              TaskGroup tGroup = new TaskGroup();
+              tGroup.setGroupTitle(dataSnapshot.child("groupTitle").getValue().toString());
+              tGroup.setMembers(tempList);
+              taskGroupDelegate.taskLoaded(tGroup);
           }
 
           @Override
@@ -200,13 +208,26 @@ public class Connector{
       });
    }
 
-    public void getAllGroups(String username){
+    public void getAllGroups(final String username){
         rootRef.child("users/" + username + "/groupList").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                TaskGroup tGroup = dataSnapshot.getValue(TaskGroup.class);
-                //Invoke necessary methods.
+            public void onChildAdded(DataSnapshot dataSnapshot1, String s) {
+                rootRef.child("users/" + username + "/groupList/" + dataSnapshot1.getKey()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot2) {
+                        getGroup(dataSnapshot2.getKey());
+                        Log.i("DEV", dataSnapshot2.getKey());
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+
+                    }
+                });
             }
+
+                //Invoke necessary methods.
+
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -251,26 +272,36 @@ public class Connector{
    		Map<String, String> post = new HashMap<String, String>();
    		post.put("gid", groupID);
    		post.put("groupname", groupName);
-   		post.put("invitor", username);
+   		post.put("invitor", loggedUser.getUsername());
 
        postRef.push().setValue(post);
    }
 
+    public void addParticipant(String groupID, String groupname, String username){
+        Firebase postRef = rootRef.child("groups/" + groupID + "/members");
+        postRef.push().setValue(username);
+
+        postRef = rootRef.child("users/" + username + "/groupList/" + groupID);
+        postRef.setValue(groupname);
+    }
+
     public void createTaskGroup(final TaskGroup taskGroup, final List<String> contributers){
 
         Firebase postRef = rootRef.child("groups");
+        Map<String, String> post = new HashMap<String, String>();
+        post.put("groupTitle",taskGroup.getGroupTitle());
 
-        postRef.push().setValue(taskGroup, new Firebase.CompletionListener() {
+        postRef.push().setValue(post, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                 if (firebaseError != null) {
                     System.out.println("Data could not be saved. " + firebaseError.getMessage());
                 } else {
                     System.out.println("Data saved successfully.");
+                    addParticipant(firebase.getKey(), taskGroup.getGroupTitle(),loggedUser.getUsername());
 
                     for (String username : contributers ){
                         inviteUser(firebase.getKey() , taskGroup.getGroupTitle(), username);
-                        Log.i("Dev", username);
                     }
                 }
             }
