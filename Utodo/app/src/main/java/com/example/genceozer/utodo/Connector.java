@@ -1,5 +1,6 @@
 package com.example.genceozer.utodo;
 
+import com.example.genceozer.utodo.entities.SubTask;
 import com.example.genceozer.utodo.entities.Task;
 import com.example.genceozer.utodo.entities.TaskGroup;
 import com.example.genceozer.utodo.entities.User;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 import com.example.genceozer.utodo.login_register.LoginActivity;
 import com.example.genceozer.utodo.login_register.RegisterActivity;
+import com.example.genceozer.utodo.task.TaskActivity;
 import com.example.genceozer.utodo.taskgroup.TaskGroupActivity;
 import com.firebase.client.*;
 import android.app.Dialog;
@@ -37,6 +39,11 @@ public class Connector{
     }
     public TaskGroupActivity taskGroupDelegate = new TaskGroupActivity();
 
+    public interface ConnectorCreateTask{
+        public void taskCreated();
+    }
+    public TaskActivity taskActivityDelegate = new TaskActivity();
+    
     //End Delegates******
 
 
@@ -316,26 +323,26 @@ public class Connector{
 
     }
 
-   public void createTask(String groupID, String title, String desc){
-   		Firebase postRef = rootRef.child("groups/" + groupID);
+   public void createTask(String groupID, Task task){
+   		Firebase postRef = rootRef.child("groups/" + groupID + "/tasks");
 
    		Map<String, Object> post = new HashMap<String, Object>();
    		//Get current date. post.put("timestamp", date)
-   		post.put("title", title);
-   		post.put("desc", desc);
-
+   		post.put("title", task.getTitle());
+   		post.put("desc", task.getDescription());
+        post.put("isDone", task.isDone());
    		postRef.push().setValue(post);
+
+       createSubtask(groupID, task.getSubTasks());
 
    }
 
-   public void createSubtask(String groupID, String title, String desc){
-   		Firebase postRef = rootRef.child("groups/" + groupID + "/subtasks");
+   public void createSubtask(String groupID, List<SubTask> subtasks){
+       Firebase postRef = rootRef.child("groups/" + groupID + "/tasks/subtasks");
 
-   		Map<String, Object> post = new HashMap<String, Object>();
+       for (SubTask st : subtasks){
+           postRef.push().setValue(st);
+       }
    		//Get current date. post.put("timestamp", date)
-   		post.put("title", title);
-   		post.put("desc", desc);
-
-   		postRef.push().setValue(post);
    }
 }
