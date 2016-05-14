@@ -21,12 +21,15 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter task name"/>
+        android:hint="Enter task name"
+        android:id="@+id/taskName"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
-        android:hint="Enter task description"/>
+        android:hint="Enter task description"
+        android:id="@+id/taskDescription"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

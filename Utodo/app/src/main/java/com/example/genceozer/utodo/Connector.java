@@ -43,7 +43,7 @@ public class Connector{
         public void taskCreated();
     }
     public TaskActivity taskActivityDelegate = new TaskActivity();
-    
+
     //End Delegates******
 
 

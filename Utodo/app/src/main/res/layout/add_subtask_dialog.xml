@@ -14,12 +14,14 @@
     <EditText
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:hint="Enter title"/>
+        android:hint="Enter title"
+        android:id="@+id/subTaskTitleText"/>
 
     <EditText
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:hint="Enter description"/>
+        android:hint="Enter description"
+        android:id="@+id/subTaskDescText"/>
 
     <Button
         android:layout_width="match_parent"
