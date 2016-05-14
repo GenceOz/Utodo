@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 
@@ -23,21 +24,24 @@ import java.util.List;
 
 public class TaskGroupActivity extends AppCompatActivity implements Connector.ConnectorTaskGroup {
 
-    List<TaskGroup> taskGroups;
+    static List<TaskGroup> taskGroups;
     ListView taskGroupListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_group);
+        taskGroups = new ArrayList<>();
 
         taskGroupListView = (ListView)findViewById(R.id.taskGroupList);
 
         //This part of the code is for static input for prototyping
         //Has to be replaced after prototyping
         Log.i("DEV", "burasi iyi hocam");
+
+
         Connector.getInstance().getAllGroups(Connector.getInstance().loggedUser.getUsername());
 
-        taskGroups = new ArrayList<>();
 
         TaskGroupListAdapter adp = new TaskGroupListAdapter(this, taskGroups);
         taskGroupListView.setAdapter(adp);
@@ -81,6 +85,15 @@ public class TaskGroupActivity extends AppCompatActivity implements Connector.Co
 
     @Override
     public void taskLoaded(TaskGroup taskGroup){
+
+        if(taskGroup == null){
+            Log.i("Dev","It is");
+        }
+        Log.i("Dev", "Here");
+
+        if(taskGroups == null){
+            Log.i("Dev","It is y");
+        }
         taskGroups.add(taskGroup);
     }
 

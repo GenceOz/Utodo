@@ -198,6 +198,7 @@ public class Connector{
               TaskGroup tGroup = new TaskGroup();
               tGroup.setGroupTitle(dataSnapshot.child("groupTitle").getValue().toString());
               tGroup.setMembers(tempList);
+
               taskGroupDelegate.taskLoaded(tGroup);
           }
 
