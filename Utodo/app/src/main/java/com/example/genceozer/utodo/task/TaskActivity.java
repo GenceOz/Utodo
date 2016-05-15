@@ -22,9 +22,9 @@ import java.util.List;
 
 public class TaskActivity extends AppCompatActivity implements Connector.ConnectorTask {
 
-    List<Task> tasks;
-    List<Object> taskId;
-    ListView tasksListView;
+    static List<Task> tasks;
+    static List<Object> taskId;
+    static ListView tasksListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,12 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
         tasks = new ArrayList<>();
         taskId = new ArrayList<>();
 
-        Connector.getInstance().getAllTasks(getIntent().getStringExtra("gid"));
+
+        Connector.getInstance().getTasks(getIntent().getStringExtra("gid"));
+
+        
+        Connector.getInstance().getTasks(getIntent().getStringExtra("gid"));
+
         TaskListAdapter adp = new TaskListAdapter(this,tasks);
         tasksListView.setAdapter(adp);
 

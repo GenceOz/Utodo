@@ -53,13 +53,13 @@ import java.util.List;
 
             holder = (ViewHolder)row.getTag();
 
-            holder.txtTitle.setText(getItem(position).getTitle().toString());
+            holder.txtTitle.setText(getItem(position).getTitle());
 
-            SimpleDateFormat format = new
-                    SimpleDateFormat("dd/MM/yyyy");
+//            SimpleDateFormat format = new
+//                    SimpleDateFormat("dd/MM/yyyy");
 
 
-            holder.txtDate.setText(format.format(getItem(position).getDueDate()));
+            holder.txtDate.setText((getItem(position).getDueDate()));
 
             if(getItem(position).isDone()){
                 holder.checkButton.setBackgroundResource(R.drawable.check_icon);
