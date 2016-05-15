@@ -17,6 +17,7 @@ import com.example.genceozer.utodo.login_register.RegisterActivity;
 import com.example.genceozer.utodo.subtask.SubtaskActivity;
 import com.example.genceozer.utodo.task.CreateTasks;
 import com.example.genceozer.utodo.task.TaskActivity;
+import com.example.genceozer.utodo.task.TaskInfoActivity;
 import com.example.genceozer.utodo.taskgroup.TaskGroupActivity;
 import com.firebase.client.*;
 import android.app.Dialog;
@@ -64,6 +65,12 @@ public class Connector{
         public void invitationAnswered();
     }
     public InvitationActivity invitationActivityDelegate = new InvitationActivity();
+
+    public interface ConnectorTaskInfoActivity{
+        public void endTaskDelete();
+    }
+
+    public TaskInfoActivity infoActivityDelegate = new TaskInfoActivity();
     //End Delegates******
 
 
@@ -402,11 +409,12 @@ public class Connector{
    		post.put("title", task.getTitle());
    		post.put("desc", task.getDescription());
         post.put("isDone", task.isDone());
-       post.put("date",task.getDueDate());
+       post.put("date", task.getDueDate());
         Firebase ref = postRef.push();
    		ref.setValue(post);
 
-       createSubtask(groupID, task.getSubTasks(),ref.getKey());
+       createSubtask(groupID, task.getSubTasks(), ref.getKey());
+       createTaskDelegate.taskCreated();
 
    }
 
@@ -469,6 +477,7 @@ public class Connector{
     public void deleteTask(Object gid, Object tid){
         Firebase postRef = rootRef.child("groups/" + gid + "/tasks/" + tid);
         postRef.removeValue();
+        infoActivityDelegate.endTaskDelete();
     }
 
     public void completeSubTask(Object gid, Object tid, Object sid){

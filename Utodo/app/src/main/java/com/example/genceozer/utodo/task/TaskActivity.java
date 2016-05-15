@@ -31,7 +31,7 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
-
+        Connector.getInstance().taskActivityDelegate = this;
         tasksListView = (ListView) findViewById(R.id.taskList);
 
         tasks = new ArrayList<>();
@@ -53,6 +53,8 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
 
                 i.putExtra("tid",taskId.get(position).toString());
                 i.putExtra("gid",gid);
+                i.putExtra("title",tasks.get(position).getTitle());
+                i.putExtra("desc",tasks.get(position).getDescription());
                 startActivity(i);
 
             }

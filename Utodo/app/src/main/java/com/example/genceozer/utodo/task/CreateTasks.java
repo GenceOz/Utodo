@@ -88,7 +88,6 @@ public class CreateTasks extends AppCompatActivity implements Connector.Connecto
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             super.onCreateView(inflater, container, savedInstanceState);
             View rootView = inflater.inflate(R.layout.add_subtask_dialog,container,false);
-
             title = (EditText)rootView.findViewById(R.id.subTaskTitleText);
             description = (EditText)rootView.findViewById(R.id.subTaskDescText);
             addTask = (Button)rootView.findViewById(R.id.addSubTask);
@@ -123,14 +122,12 @@ public class CreateTasks extends AppCompatActivity implements Connector.Connecto
         newTask.setDueDate(taskDate);
 
         Intent i = getIntent();
-        Connector.getInstance().createTask(i.getStringExtra("gid"),newTask);
-
-        i = new Intent(this,TaskActivity.class);
-        startActivity(i);
+        Connector.getInstance().createTask(i.getStringExtra("gid"), newTask);
     }
 
+    @Override
     public void taskCreated(){
-        Intent i = new Intent(this, TaskActivity.class);
-        startActivity(i);
+        Log.i("Dev","Finish");
+        finish();
     }
 }

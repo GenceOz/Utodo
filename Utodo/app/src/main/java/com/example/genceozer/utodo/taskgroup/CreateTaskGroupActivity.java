@@ -57,8 +57,7 @@ public class CreateTaskGroupActivity extends AppCompatActivity {
                 userList.add(Connector.getInstance().loggedUser.getUsername());
                 TaskGroup newTaskGroup = new TaskGroup(taskGroupTitle.getText().toString(), userList, null);
                 Connector.getInstance().createTaskGroup(newTaskGroup,contributorList);
-                Intent i = new Intent(this,TaskGroupActivity.class);
-                startActivity(i);
+                finish();
                 break;
         }
 

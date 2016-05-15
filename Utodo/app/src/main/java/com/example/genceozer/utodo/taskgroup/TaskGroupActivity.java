@@ -31,13 +31,10 @@ public class TaskGroupActivity extends AppCompatActivity implements Connector.Co
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_group);
+        Connector.getInstance().taskGroupDelegate = this;
         taskGroups = new ArrayList<>();
         taskIDs = new ArrayList<>();
         taskGroupListView = (ListView)findViewById(R.id.taskGroupList);
-
-        //This part of the code is for static input for prototyping
-        //Has to be replaced after prototyping
-
 
         Connector.getInstance().getAllGroups(Connector.getInstance().loggedUser.getUsername());
 
@@ -55,7 +52,6 @@ public class TaskGroupActivity extends AppCompatActivity implements Connector.Co
         });
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){

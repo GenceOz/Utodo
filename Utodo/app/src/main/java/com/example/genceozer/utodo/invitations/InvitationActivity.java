@@ -26,7 +26,7 @@ public class InvitationActivity extends AppCompatActivity implements Connector.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
-
+        Connector.getInstance().invitationActivityDelegate = this;
         invitationList = new ArrayList<>();
         invitationId = new ArrayList<>();
         groupId = new ArrayList<>();
@@ -54,7 +54,6 @@ public class InvitationActivity extends AppCompatActivity implements Connector.C
 
     @Override
     public void invitationAnswered(){
-        Intent i = new Intent(this, TaskGroupActivity.class);
-        startActivity(i);
+        finish();
     }
 }

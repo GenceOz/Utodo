@@ -15,15 +15,18 @@
         android:layout_height="wrap_content"
         android:text="Task Name"
         android:textSize="25dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:id="@+id/taskInfoTitle"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="description"/>
+        android:text="description"
+        android:id="@+id/taskInfoDesc"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete task"/>
+        android:text="Delete task"
+        android:id="@+id/taskInfoDeleteButton"/>
 </LinearLayout>

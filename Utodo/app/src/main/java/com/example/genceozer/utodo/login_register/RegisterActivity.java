@@ -20,6 +20,7 @@ public class RegisterActivity extends AppCompatActivity implements Connector.Con
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        Connector.getInstance().registerActivityDelegate = this;
         username = (EditText) findViewById(R.id.usernameText);
         email = (EditText) findViewById(R.id.emailText);
         password = (EditText) findViewById(R.id.passwordText);

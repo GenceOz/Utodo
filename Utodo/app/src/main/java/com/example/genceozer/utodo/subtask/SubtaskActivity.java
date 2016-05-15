@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,17 +34,27 @@ public class SubtaskActivity extends AppCompatActivity implements Connector.Conn
     static ListView subTasksListView;
     static String description;
     static String title;
+    static String groupId;
+    static String taskId;
+    static String sid;
+    static String taskTitle;
+    static String taskDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtask_list);
-
+        Connector.getInstance().subTaskActivityDelegate = this;
         subTasks = new ArrayList<>();
         subTaskId = new ArrayList<>();
         subTasksListView = (ListView) findViewById(R.id.taskList);
 
         Connector.getInstance().getSubTask(getIntent().getStringExtra("gid"), getIntent().getStringExtra("tid"));
+        groupId = getIntent().getStringExtra("gid");
+        taskId =  getIntent().getStringExtra("tid");
+        taskTitle = getIntent().getStringExtra("title");
+        taskDesc = getIntent().getStringExtra("desc");
 
         SubTaskListAdapter adp = new SubTaskListAdapter(this,subTasks);
         subTasksListView.setAdapter(adp);
@@ -54,6 +65,7 @@ public class SubtaskActivity extends AppCompatActivity implements Connector.Conn
                 Log.i("DEV", "Listener Called");
                 title = subTasks.get(position).getTitle();
                 description = subTasks.get(position).getDescription();
+                sid = subTaskId.get(position).toString();
                 SubTaskDialog dlg = new SubTaskDialog();
                 dlg.show(getSupportFragmentManager(), "subTaskDialog");
 
@@ -76,6 +88,10 @@ public class SubtaskActivity extends AppCompatActivity implements Connector.Conn
             //Create task group menu item
             case R.id.taskInfo:
                 Intent i = new Intent(SubtaskActivity.this, TaskInfoActivity.class);
+                i.putExtra("gid",groupId);
+                i.putExtra("tid",taskId);
+                i.putExtra("title",taskTitle);
+                i.putExtra("desc",taskDesc);
                 startActivity(i);
 
                 break;
@@ -88,6 +104,7 @@ public class SubtaskActivity extends AppCompatActivity implements Connector.Conn
 
         TextView titleText;
         TextView descriptionText;
+        Button completeTask;
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -107,6 +124,16 @@ public class SubtaskActivity extends AppCompatActivity implements Connector.Conn
             }else {
                 descriptionText.setText(description);
             }
+
+            completeTask = (Button) rootView.findViewById(R.id.completeSubTask);
+
+            completeTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Connector.getInstance().completeSubTask(groupId,taskId,sid);
+                    dismiss();
+                }
+            });
 
             return rootView;
         }
