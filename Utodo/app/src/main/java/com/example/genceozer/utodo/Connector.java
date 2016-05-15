@@ -125,7 +125,7 @@ public class Connector{
    }
 
    public void userSignUp(final String username, final String email, final String password){
-   		rootRef.child("users/" + username).addValueEventListener(new ValueEventListener() {
+   		rootRef.child("users/" + username).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 Log.i("Dev", "Table changed");
@@ -466,5 +466,18 @@ public class Connector{
 
     public void deleteTask(Object gid, Object tid){
         Firebase postRef = rootRef.child("groups/" + gid + "/tasks/" + tid);
+        postRef.removeValue();
     }
+
+    public void completeSubTask(Object gid, Object tid, Object sid){
+        Firebase postRef = rootRef.child("groups/" + gid + "/tasks/" + tid + "/subtasks/" + sid + "/done");
+        postRef.setValue(true);
+    }
+
+    public void completeTask(Object gid, Object tid){
+        Firebase postRef = rootRef.child("groups/" + gid + "/tasks/" + tid + "/isDone");
+        postRef.setValue(true);
+    }
+
+
 }
