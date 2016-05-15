@@ -269,20 +269,31 @@ public class Connector{
     }
 
    public void getTasks(String groupID){
-      rootRef.child("groups/" + groupID + "tasks").addValueEventListener(new ValueEventListener() {
+      rootRef.child("groups/" + groupID + "/tasks").addChildEventListener(new ChildEventListener() {
           @Override
-          public void onDataChange(DataSnapshot dataSnapshot) {
+          public void onChildAdded(DataSnapshot dataSnapshot, String s) {
               Task newTask = new Task();
               newTask.setDescription(dataSnapshot.child("desc").getValue().toString());
               newTask.setTitle(dataSnapshot.child("title").getValue().toString());
               newTask.setIsDone(((Boolean) dataSnapshot.child("isDone").getValue()));
               newTask.setDueDate(dataSnapshot.child("date").getValue().toString());
+              System.out.println("*********");
+              taskActivityDelegate.taskLoaded(newTask, dataSnapshot.getKey());
+          }
 
-//              taskActivityDelegate.taskLoaded();
-//              for (int i = 0; i < dataSnapshot.child("subtasks").getChildrenCount(); i++){
-//
-//              }
-              //Invoke necessary methods.
+          @Override
+          public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+          }
+
+          @Override
+          public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+          }
+
+          @Override
+          public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
           }
 
           @Override
@@ -290,6 +301,7 @@ public class Connector{
 
           }
       });
+
    }
 
    public void inviteUser(String groupID, String groupName, String username){
