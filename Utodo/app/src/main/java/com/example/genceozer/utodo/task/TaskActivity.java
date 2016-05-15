@@ -8,8 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.example.genceozer.utodo.Connector;
 import com.example.genceozer.utodo.R;
 import com.example.genceozer.utodo.entities.Task;
 import com.example.genceozer.utodo.login_register.LoginActivity;
@@ -18,9 +20,10 @@ import com.example.genceozer.utodo.subtask.SubtaskActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskActivity extends AppCompatActivity {
+public class TaskActivity extends AppCompatActivity implements Connector.ConnectorTask {
 
     List<Task> tasks;
+    List<Object> taskId;
     ListView tasksListView;
 
     @Override
@@ -31,6 +34,9 @@ public class TaskActivity extends AppCompatActivity {
         tasksListView = (ListView) findViewById(R.id.taskList);
 
         tasks = new ArrayList<>();
+        taskId = new ArrayList<>();
+        
+        Connector.getInstance().getAllTasks(getIntent().getStringExtra("gid"));
         TaskListAdapter adp = new TaskListAdapter(this,tasks);
         tasksListView.setAdapter(adp);
 
@@ -73,5 +79,12 @@ public class TaskActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void taskLoaded(Task t, Object tid){
+        tasks.add(t);
+        taskId.add(tid);
+        ((BaseAdapter) tasksListView.getAdapter()).notifyDataSetChanged();
     }
 }
