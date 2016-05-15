@@ -10,17 +10,20 @@
         android:textStyle="bold"
         android:textSize="25dp"
         android:gravity="center"
-        android:paddingBottom="25dp"/>
+        android:paddingBottom="25dp"
+        android:id="@+id/subTaskHeader"/>
 
     <TextView
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Description is a very very long way Description is a very very long way Description is a very very long way"
-        android:paddingBottom="25dp"/>
+        android:paddingBottom="25dp"
+        android:id="@+id/subTaskDescription"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Complete Task"
+        android:id="@+id/completeTask"
         />
 </LinearLayout>

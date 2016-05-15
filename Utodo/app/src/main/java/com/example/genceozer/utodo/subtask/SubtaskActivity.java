@@ -14,11 +14,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.genceozer.utodo.Connector;
 import com.example.genceozer.utodo.R;
 import com.example.genceozer.utodo.entities.SubTask;
 import com.example.genceozer.utodo.task.TaskInfoActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,8 @@ public class SubtaskActivity extends AppCompatActivity implements Connector.Conn
     static List<SubTask> subTasks;
     static List<Object> subTaskId;
     static ListView subTasksListView;
+    static String description;
+    static String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,8 @@ public class SubtaskActivity extends AppCompatActivity implements Connector.Conn
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("DEV", "Listener Called");
+                title = subTasks.get(position).getTitle();
+                description = subTasks.get(position).getDescription();
                 SubTaskDialog dlg = new SubTaskDialog();
                 dlg.show(getSupportFragmentManager(), "subTaskDialog");
 
@@ -79,10 +86,29 @@ public class SubtaskActivity extends AppCompatActivity implements Connector.Conn
 
     public static class SubTaskDialog extends DialogFragment {
 
+        TextView titleText;
+        TextView descriptionText;
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.subtask_dialog,null);
+            View rootView = inflater.inflate(R.layout.subtask_dialog,container,false);
+
+
+            titleText= (TextView)rootView.findViewById(R.id.subTaskHeader);
+            if(titleText == null) {
+                Log.i("Dev","It is null");
+            }else{
+                titleText.setText(title);
+            }
+
+            descriptionText = (TextView) rootView.findViewById(R.id.subTaskDescription);
+            if(descriptionText == null){
+                Log.i("Dev","It is null");
+            }else {
+                descriptionText.setText(description);
+            }
+
+            return rootView;
         }
     }
 
