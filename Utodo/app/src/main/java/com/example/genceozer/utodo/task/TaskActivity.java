@@ -11,11 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.genceozer.utodo.R;
-import com.example.genceozer.utodo.StaticInput;
 import com.example.genceozer.utodo.entities.Task;
 import com.example.genceozer.utodo.login_register.LoginActivity;
 import com.example.genceozer.utodo.subtask.SubtaskActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskActivity extends AppCompatActivity {
@@ -30,9 +30,7 @@ public class TaskActivity extends AppCompatActivity {
 
         tasksListView = (ListView) findViewById(R.id.taskList);
 
-        StaticInput input = new StaticInput(null);
-        tasks = input.getTaskStatic();
-
+        tasks = new ArrayList<>();
         TaskListAdapter adp = new TaskListAdapter(this,tasks);
         tasksListView.setAdapter(adp);
 

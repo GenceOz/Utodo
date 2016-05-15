@@ -15,14 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.genceozer.utodo.R;
-import com.example.genceozer.utodo.StaticInput;
 import com.example.genceozer.utodo.entities.SubTask;
-import com.example.genceozer.utodo.entities.Task;
-import com.example.genceozer.utodo.login_register.LoginActivity;
-import com.example.genceozer.utodo.task.TaskActivity;
 import com.example.genceozer.utodo.task.TaskInfoActivity;
-import com.example.genceozer.utodo.task.TaskListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubtaskActivity extends AppCompatActivity {
@@ -34,11 +30,8 @@ public class SubtaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtask_list);
-
+        subTasks = new ArrayList<>();
         subTasksListView = (ListView) findViewById(R.id.taskList);
-
-        StaticInput input = new StaticInput(null);
-        subTasks = input.getSubTaskStatic();
 
         SubTaskListAdapter adp = new SubTaskListAdapter(this,subTasks);
         subTasksListView.setAdapter(adp);

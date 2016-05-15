@@ -14,9 +14,8 @@ import android.widget.ListView;
 
 import com.example.genceozer.utodo.Connector;
 import com.example.genceozer.utodo.R;
-import com.example.genceozer.utodo.StaticInput;
-import com.example.genceozer.utodo.entities.Task;
 import com.example.genceozer.utodo.entities.TaskGroup;
+import com.example.genceozer.utodo.invitations.InvitationActivity;
 import com.example.genceozer.utodo.task.TaskActivity;
 
 import java.util.ArrayList;
@@ -77,7 +76,8 @@ public class TaskGroupActivity extends AppCompatActivity implements Connector.Co
 
             //Check invitation menu item
             case R.id.mnInvitation:
-
+                Intent i2 = new Intent(this, InvitationActivity.class);
+                startActivity(i2);
                 break;
         }
 

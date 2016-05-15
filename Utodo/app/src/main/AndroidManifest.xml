@@ -31,8 +31,13 @@
             android:name=".subtask.SubtaskActivity"
             android:theme="@style/ActionBarTheme" />
         <activity android:name=".task.CreateTasks" />
-        <activity android:name=".task.TaskInfoActivity"></activity>
+        <activity android:name=".task.TaskInfoActivity" />
+
         <uses-permission android:name="android.permission.INTERNET" />
+
+        <activity android:name=".invitations.InviationActivity" />
+        <activity android:name=".invitations.InvitationActivity" />
+        <activity android:name=".invitations.InvitationListAdapter"></activity>
     </application>
 
 </manifest>

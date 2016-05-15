@@ -50,11 +50,7 @@ public class TaskGroupListAdapter extends ArrayAdapter<TaskGroup> {
 
         holder.txtTitle.setText(getItem(position).getGroupTitle().toString());
 
-        SimpleDateFormat format = new
-                SimpleDateFormat("dd/MM/yyyy");
-
-
-//        holder.txtDate.setText(format.format(getItem(position).getIncomingDeadline()));
+      holder.txtDate.setText(getItem(position).getMembers().size()+" contributers");
 
 
 

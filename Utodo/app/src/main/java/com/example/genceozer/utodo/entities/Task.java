@@ -2,6 +2,7 @@ package com.example.genceozer.utodo.entities;
 
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,11 +10,11 @@ import java.util.Map;
  */
 public class Task {
 
-    private Date dueDate;
+    private String dueDate;
     private String title;
     private String desc;
     private boolean isDone;
-    private ArrayList<SubTask> subTasks;
+    private List<SubTask> subTasks;
 
     public Task() {
     }
@@ -23,10 +24,10 @@ public class Task {
         this.title = responseMap.get("title").toString();
         this.desc = responseMap.get("desc").toString();
         this.isDone = (Boolean)responseMap.get("status");
-        this.subTasks = (ArrayList<SubTask>) responseMap.get("subTasks"); //Resolve
+        this.subTasks = (List<SubTask>) responseMap.get("subTasks"); //Resolve
     }
 
-    public Task(Date dueDate, String title, String desc, boolean isDone, ArrayList<SubTask> subTasks) {
+    public Task(String dueDate, String title, String desc, boolean isDone, List<SubTask> subTasks) {
         this.dueDate = dueDate;
         this.title = title;
         this.desc = desc;
@@ -34,20 +35,20 @@ public class Task {
         this.subTasks = subTasks;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
 
         return dueDate;
     }
 
-    public ArrayList<SubTask> getSubTasks() {
+    public List<SubTask> getSubTasks() {
         return subTasks;
     }
 
-    public void setSubTasks(ArrayList<SubTask> subTasks) {
+    public void setSubTasks(List<SubTask> subTasks) {
         this.subTasks = subTasks;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 

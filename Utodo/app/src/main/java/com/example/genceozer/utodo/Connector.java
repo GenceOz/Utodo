@@ -88,7 +88,7 @@ public class Connector{
             public void onCancelled(FirebaseError firebaseError) {
 
             }
-   		});
+        });
    }
 
    public void getUser(String username){
@@ -149,16 +149,16 @@ public class Connector{
                //Invoke necessary methods.
                final String email = dataSnapshot.child("email").getValue().toString();
 
-               if (dataSnapshot.getChildrenCount() > 0){
-                   rootRef.authWithPassword(email, password, new Firebase.AuthResultHandler(){
+               if (dataSnapshot.getChildrenCount() > 0) {
+                   rootRef.authWithPassword(email, password, new Firebase.AuthResultHandler() {
                        @Override
-                       public void onAuthenticated(AuthData authData){
+                       public void onAuthenticated(AuthData authData) {
                            loggedUser.setEmail(email);
                            loggedUser.setUsername(username);
                            loggedUser.setUserId(dataSnapshot.getKey());
 
                            List<Object> tempList = new ArrayList<>();
-                           for (DataSnapshot postSnapshot : dataSnapshot.child("invitations").getChildren()){
+                           for (DataSnapshot postSnapshot : dataSnapshot.child("invitations").getChildren()) {
                                tempList.add(postSnapshot.getValue());
                            }
                            loggedUser.setInvitations(tempList);
@@ -167,7 +167,7 @@ public class Connector{
                        }
 
                        @Override
-                       public void onAuthenticationError(FirebaseError error){
+                       public void onAuthenticationError(FirebaseError error) {
 //                final Dialog dialog = new Dialog(LoginActivity.this); // Context, this, etc.
 //                dialog.setContentView(R.layout.dialogdemo);
 //                dialog.setTitle(R.string.dialog_title);
@@ -176,8 +176,7 @@ public class Connector{
                            System.out.println("Something went wrong while logging in.");
                        }
                    });
-               }
-               else{
+               } else {
                    loginActivityDelegate.userLogInFailed();
                }
            }
@@ -203,7 +202,7 @@ public class Connector{
           @Override
           public void onDataChange(DataSnapshot dataSnapshot) {
               List<String> tempList = new ArrayList<>();
-              for (DataSnapshot postSnapshot : dataSnapshot.child("members").getChildren()){
+              for (DataSnapshot postSnapshot : dataSnapshot.child("members").getChildren()) {
                   tempList.add(postSnapshot.getValue().toString());
               }
 
@@ -239,7 +238,7 @@ public class Connector{
                 });
             }
 
-                //Invoke necessary methods.
+            //Invoke necessary methods.
 
 
             @Override
@@ -302,7 +301,7 @@ public class Connector{
 
         Firebase postRef = rootRef.child("groups");
         Map<String, String> post = new HashMap<String, String>();
-        post.put("groupTitle",taskGroup.getGroupTitle());
+        post.put("groupTitle", taskGroup.getGroupTitle());
 
         postRef.push().setValue(post, new Firebase.CompletionListener() {
             @Override
@@ -311,10 +310,10 @@ public class Connector{
                     System.out.println("Data could not be saved. " + firebaseError.getMessage());
                 } else {
                     System.out.println("Data saved successfully.");
-                    addParticipant(firebase.getKey(), taskGroup.getGroupTitle(),loggedUser.getUsername());
+                    addParticipant(firebase.getKey(), taskGroup.getGroupTitle(), loggedUser.getUsername());
 
-                    for (String username : contributers ){
-                        inviteUser(firebase.getKey() , taskGroup.getGroupTitle(), username);
+                    for (String username : contributers) {
+                        inviteUser(firebase.getKey(), taskGroup.getGroupTitle(), username);
                     }
                 }
             }
@@ -326,24 +325,24 @@ public class Connector{
 
    public void createTask(String groupID, Task task){
    		Firebase postRef = rootRef.child("groups/" + groupID + "/tasks");
-
    		Map<String, Object> post = new HashMap<String, Object>();
    		//Get current date. post.put("timestamp", date)
    		post.put("title", task.getTitle());
    		post.put("desc", task.getDescription());
         post.put("isDone", task.isDone());
-   		postRef.push().setValue(post);
+       post.put("date",task.getDueDate());
+        Firebase ref = postRef.push();
+   		ref.setValue(post);
 
-//       createSubtask(groupID, task.getSubTasks());
+       createSubtask(groupID, task.getSubTasks(),ref.getKey());
 
    }
 
-   public void createSubtask(String groupID, List<SubTask> subtasks){
-       Firebase postRef = rootRef.child("groups/" + groupID + "/tasks/subtasks");
+   public void createSubtask(String groupID, List<SubTask> subtasks, String taskId){
+       Firebase postRef = rootRef.child("groups/" + groupID + "/tasks/"+ taskId+"/subtasks");
 
        for (SubTask st : subtasks){
            postRef.push().setValue(st);
        }
-   		//Get current date. post.put("timestamp", date)
    }
 }
