@@ -25,8 +25,7 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
     static List<Task> tasks;
     static List<Object> taskId;
     static ListView tasksListView;
-    Intent i = getIntent();
-    String gid = i.getStringExtra("gid");
+    static String gid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,8 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
         tasks = new ArrayList<>();
         taskId = new ArrayList<>();
 
+        Intent i = getIntent();
+        gid = i.getStringExtra("gid");
 
         Connector.getInstance().getTasks(getIntent().getStringExtra("gid"));
 
@@ -75,7 +76,8 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
 
             //Create task group menu item
             case R.id.taskInfo:
-
+                    Intent i = getIntent();
+                    String gid = i.getStringExtra("gid");
                     i = new Intent(TaskActivity.this,CreateTasks.class);
                     i.putExtra("gid", gid);
                     startActivity(i);
