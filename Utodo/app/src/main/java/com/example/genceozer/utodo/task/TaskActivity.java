@@ -42,9 +42,6 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
 
         Connector.getInstance().getTasks(getIntent().getStringExtra("gid"));
 
-        
-        Connector.getInstance().getTasks(getIntent().getStringExtra("gid"));
-
         TaskListAdapter adp = new TaskListAdapter(this,tasks);
         tasksListView.setAdapter(adp);
 

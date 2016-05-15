@@ -1,5 +1,6 @@
 package com.example.genceozer.utodo;
 
+import com.example.genceozer.utodo.entities.Invitation;
 import com.example.genceozer.utodo.entities.SubTask;
 import com.example.genceozer.utodo.entities.Task;
 import com.example.genceozer.utodo.entities.TaskGroup;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.genceozer.utodo.invitations.InvitationActivity;
 import com.example.genceozer.utodo.login_register.LoginActivity;
 import com.example.genceozer.utodo.login_register.RegisterActivity;
 import com.example.genceozer.utodo.subtask.SubtaskActivity;
@@ -55,6 +57,11 @@ public class Connector{
         public void subTaskLoaded(SubTask subTask, Object stid);
     }
     public SubtaskActivity subTaskActivityDelegate = new SubtaskActivity();
+
+    public interface ConnectorInvitation{
+        public void invitationLoaded(Invitation invitation, Object stid);
+    }
+    public InvitationActivity invitationActivityDelegate = new InvitationActivity();
     //End Delegates******
 
 
@@ -309,13 +316,13 @@ public class Connector{
    }
 
     public void getSubTask(String groupID, String taskID){
-        rootRef.child("groups/" + groupID + "/tasks/" + taskID).addChildEventListener(new ChildEventListener() {
+        rootRef.child("groups/" + groupID + "/tasks/" + taskID + "/subtasks").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 SubTask newSubTask = new SubTask();
-                newSubTask.setDescription(dataSnapshot.child("desc").getValue().toString());
+                newSubTask.setDescription(dataSnapshot.child("description").getValue().toString());
                 newSubTask.setTitle(dataSnapshot.child("title").getValue().toString());
-                newSubTask.setIsDone(((Boolean) dataSnapshot.child("isDone").getValue()));
+                newSubTask.setIsDone(((Boolean) dataSnapshot.child("done").getValue()));
                 subTaskActivityDelegate.subTaskLoaded(newSubTask, dataSnapshot.getKey());
             }
 
@@ -408,4 +415,36 @@ public class Connector{
            postRef.push().setValue(st);
        }
    }
+
+    public void getUserInvitations(){
+        rootRef.child("users/" + loggedUser.getUsername() + "/invitations").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Invitation invitation = new Invitation();
+                invitation.setGroupTitle(dataSnapshot.child("groupname").getValue().toString());
+                invitation.setInvitorName(dataSnapshot.child("invitor").getValue().toString());
+                invitationActivityDelegate.invitationLoaded(invitation, dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
 }
