@@ -72,8 +72,6 @@ public class InvitationListAdapter extends ArrayAdapter<Invitation> {
 
         holder.groupTitle.setText(getItem(position).getGroupTitle());
         holder.invitorName.setText(getItem(position).getInvitorName());
-
-        holder
         return row;
 
 

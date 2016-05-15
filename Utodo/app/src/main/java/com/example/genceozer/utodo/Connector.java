@@ -59,7 +59,7 @@ public class Connector{
     public SubtaskActivity subTaskActivityDelegate = new SubtaskActivity();
 
     public interface ConnectorInvitation{
-        public void invitationLoaded(Invitation invitation, Object stid);
+        public void invitationLoaded(Invitation invitation, Object stid, Object gid);
         public void refreshInvitations();
     }
     public InvitationActivity invitationActivityDelegate = new InvitationActivity();
@@ -424,7 +424,7 @@ public class Connector{
                 Invitation invitation = new Invitation();
                 invitation.setGroupTitle(dataSnapshot.child("groupname").getValue().toString());
                 invitation.setInvitorName(dataSnapshot.child("invitor").getValue().toString());
-                invitationActivityDelegate.invitationLoaded(invitation, dataSnapshot.getKey());
+                invitationActivityDelegate.invitationLoaded(invitation, dataSnapshot.getKey(), dataSnapshot.child("gid").getValue());
             }
 
             @Override
@@ -462,5 +462,9 @@ public class Connector{
 
         postRef = rootRef.child("users/" + loggedUser.getUsername() + "/groupList/" + gid);
         postRef.setValue(groupname);
+    }
+
+    public void deleteTask(Object gid, Object tid){
+        Firebase postRef = rootRef.child("groups/" + gid + "/tasks/" + tid);
     }
 }

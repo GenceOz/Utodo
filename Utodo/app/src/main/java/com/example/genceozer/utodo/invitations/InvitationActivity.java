@@ -26,6 +26,7 @@ public class InvitationActivity extends AppCompatActivity implements Connector.C
 
         invitationList = new ArrayList<>();
         invitationId = new ArrayList<>();
+        groupId = new ArrayList<>();
 
         invitationListView = (ListView) findViewById(R.id.invitationList);
 
