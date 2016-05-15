@@ -61,6 +61,7 @@ public class Connector{
     public interface ConnectorInvitation{
         public void invitationLoaded(Invitation invitation, Object stid, Object gid);
         public void refreshInvitations();
+        public void invitationAnswered();
     }
     public InvitationActivity invitationActivityDelegate = new InvitationActivity();
     //End Delegates******
@@ -161,7 +162,7 @@ public class Connector{
    }
 
    public void userLogIn(final String username, final String password){ //Username parameter removed
-       rootRef.child("users/" + username).addValueEventListener(new ValueEventListener() {
+       rootRef.child("users/" + username).addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(final DataSnapshot dataSnapshot) {
                //Invoke necessary methods.
@@ -216,7 +217,7 @@ public class Connector{
    }
 
    public void getGroup(final String groupID){
-      rootRef.child("groups/" + groupID).addValueEventListener(new ValueEventListener() {
+      rootRef.child("groups/" + groupID).addListenerForSingleValueEvent(new ValueEventListener() {
           @Override
           public void onDataChange(DataSnapshot dataSnapshot) {
               List<String> tempList = new ArrayList<>();
@@ -452,16 +453,17 @@ public class Connector{
     public void deleteInvitation(Object iid){
         Firebase postRef = rootRef.child("users/" + loggedUser.getUsername() + "/invitations/" + iid.toString() );
         postRef.removeValue();
+        invitationActivityDelegate.invitationAnswered();
     }
 
     public void acceptInvitation(Object gid, String groupname, Object iid){
-        deleteInvitation(iid);
-
         Firebase postRef = rootRef.child("groups/" + gid + "/members");
         postRef.push().setValue(loggedUser.getUsername());
 
         postRef = rootRef.child("users/" + loggedUser.getUsername() + "/groupList/" + gid);
         postRef.setValue(groupname);
+
+        deleteInvitation(iid);
     }
 
     public void deleteTask(Object gid, Object tid){
