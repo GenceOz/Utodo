@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.example.genceozer.utodo.login_register.LoginActivity;
 import com.example.genceozer.utodo.login_register.RegisterActivity;
+import com.example.genceozer.utodo.subtask.SubtaskActivity;
 import com.example.genceozer.utodo.task.CreateTasks;
 import com.example.genceozer.utodo.task.TaskActivity;
 import com.example.genceozer.utodo.taskgroup.TaskGroupActivity;
@@ -50,6 +51,10 @@ public class Connector{
     }
     public TaskActivity taskActivityDelegate = new TaskActivity();
 
+    public interface ConnectorSubtask{
+        public void subTaskLoaded(SubTask subTask, Object stid);
+    }
+    public SubtaskActivity subTaskActivityDelegate = new SubtaskActivity();
     //End Delegates******
 
 
@@ -277,7 +282,6 @@ public class Connector{
               newTask.setTitle(dataSnapshot.child("title").getValue().toString());
               newTask.setIsDone(((Boolean) dataSnapshot.child("isDone").getValue()));
               newTask.setDueDate(dataSnapshot.child("date").getValue().toString());
-              System.out.println("*********");
               taskActivityDelegate.taskLoaded(newTask, dataSnapshot.getKey());
           }
 
@@ -303,6 +307,39 @@ public class Connector{
       });
 
    }
+
+    public void getSubTasks(String groupID, String taskID){
+        rootRef.child("groups/" + groupID + "/tasks/" + taskID).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                SubTask newSubTask = new SubTask();
+                newSubTask.setDescription(dataSnapshot.child("desc").getValue().toString());
+                newSubTask.setTitle(dataSnapshot.child("title").getValue().toString());
+                newSubTask.setIsDone(((Boolean) dataSnapshot.child("isDone").getValue()));
+                subTaskActivityDelegate.subTaskLoaded(newSubTask, dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        })
+    }
 
    public void inviteUser(String groupID, String groupName, String username){
    		Firebase postRef = rootRef.child("users/" + username + "/invitations");
