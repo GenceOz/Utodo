@@ -23,7 +23,7 @@ import com.example.genceozer.utodo.task.TaskInfoActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubtaskActivity extends AppCompatActivity {
+public class SubtaskActivity extends AppCompatActivity implements Connector.ConnectorSubtask{
 
     static List<SubTask> subTasks;
     static List<Object> subTaskId;

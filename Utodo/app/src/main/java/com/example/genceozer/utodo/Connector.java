@@ -308,7 +308,7 @@ public class Connector{
 
    }
 
-    public void getSubTasks(String groupID, String taskID){
+    public void getSubTask(String groupID, String taskID){
         rootRef.child("groups/" + groupID + "/tasks/" + taskID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -338,7 +338,7 @@ public class Connector{
             public void onCancelled(FirebaseError firebaseError) {
 
             }
-        })
+        });
     }
 
    public void inviteUser(String groupID, String groupName, String username){
