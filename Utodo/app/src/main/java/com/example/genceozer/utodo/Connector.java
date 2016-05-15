@@ -45,6 +45,11 @@ public class Connector{
     }
     public CreateTasks createTaskDelegate = new CreateTasks();
 
+    public interface ConnectorTask{
+        public void taskLoaded(Task task, Object tid);
+    }
+    public TaskActivity taskActivityDelegate = new TaskActivity();
+
     //End Delegates******
 
 
@@ -267,7 +272,16 @@ public class Connector{
       rootRef.child("groups/" + groupID + "tasks").addValueEventListener(new ValueEventListener() {
           @Override
           public void onDataChange(DataSnapshot dataSnapshot) {
-              Task newTask = new Task((Map<String, Object>) dataSnapshot.getValue()); //Constructor with HashMap. Resolve.
+              Task newTask = new Task();
+              newTask.setDescription(dataSnapshot.child("desc").getValue().toString());
+              newTask.setTitle(dataSnapshot.child("title").getValue().toString());
+              newTask.setIsDone(((Boolean) dataSnapshot.child("isDone").getValue()));
+              newTask.setDueDate(dataSnapshot.child("date").getValue().toString());
+
+//              taskActivityDelegate.taskLoaded();
+//              for (int i = 0; i < dataSnapshot.child("subtasks").getChildrenCount(); i++){
+//
+//              }
               //Invoke necessary methods.
           }
 
