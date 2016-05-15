@@ -31,10 +31,12 @@
     <ImageButton
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:background="@drawable/check_icon" />
+        android:background="@drawable/check_icon"
+        android:id="@+id/acceptInvitationButton"/>
 
     <ImageButton
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:background="@android:drawable/ic_delete" />
+        android:background="@android:drawable/ic_delete"
+        android:id="@+id/rejectInvitationButton"/>
 </LinearLayout>

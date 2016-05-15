@@ -40,4 +40,9 @@ public class InvitationActivity extends AppCompatActivity implements Connector.C
         invitationId.add(iid);
         ((BaseAdapter) invitationListView.getAdapter()).notifyDataSetChanged();
     }
+
+    @Override
+    public void invitationRefreshInvitations(){
+        ((BaseAdapter) invitationListView.getAdapter()).notifyDataSetChanged();
+    }
 }
