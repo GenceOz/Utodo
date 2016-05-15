@@ -25,6 +25,8 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
     static List<Task> tasks;
     static List<Object> taskId;
     static ListView tasksListView;
+    Intent i = getIntent();
+    String gid = i.getStringExtra("gid");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +50,13 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
         tasksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("DEV","Listener Called");
-                if(tasks.get(position).getSubTasks() == null){
-                    Intent i = new Intent(TaskActivity.this, LoginActivity.class);
-                    startActivity(i);
-                }else{
-                    Intent i = new Intent(TaskActivity.this, SubtaskActivity.class);
-                    startActivity(i);
-                }
+
+                Intent i = new Intent(TaskActivity.this, SubtaskActivity.class);
+
+                i.putExtra("tid",taskId.get(position).toString());
+                i.putExtra("gid",gid);
+                startActivity(i);
+
             }
         });
 
@@ -74,8 +75,7 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
 
             //Create task group menu item
             case R.id.taskInfo:
-                    Intent i = getIntent();
-                    String gid = i.getStringExtra("gid");
+
                     i = new Intent(TaskActivity.this,CreateTasks.class);
                     i.putExtra("gid", gid);
                     startActivity(i);

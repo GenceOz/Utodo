@@ -12,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.example.genceozer.utodo.Connector;
 import com.example.genceozer.utodo.R;
 import com.example.genceozer.utodo.entities.SubTask;
 import com.example.genceozer.utodo.task.TaskInfoActivity;
@@ -23,15 +25,20 @@ import java.util.List;
 
 public class SubtaskActivity extends AppCompatActivity {
 
-    List<SubTask> subTasks;
-    ListView subTasksListView;
+    static List<SubTask> subTasks;
+    static List<Object> subTaskId;
+    static ListView subTasksListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtask_list);
+
         subTasks = new ArrayList<>();
+        subTaskId = new ArrayList<>();
         subTasksListView = (ListView) findViewById(R.id.taskList);
+
+        Connector.getInstance().getSubTask(getIntent().getStringExtra("gid"), getIntent().getStringExtra("tid"));
 
         SubTaskListAdapter adp = new SubTaskListAdapter(this,subTasks);
         subTasksListView.setAdapter(adp);
@@ -77,5 +84,12 @@ public class SubtaskActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             return inflater.inflate(R.layout.subtask_dialog,null);
         }
+    }
+
+    @Override
+    public void subTaskLoaded(SubTask s, Object sid){
+        subTasks.add(s);
+        subTaskId.add(sid);
+        ((BaseAdapter) subTasksListView.getAdapter()).notifyDataSetChanged();
     }
 }
