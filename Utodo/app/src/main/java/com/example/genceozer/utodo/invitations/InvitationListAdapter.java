@@ -21,11 +21,13 @@ import java.util.List;
 
 public class InvitationListAdapter extends ArrayAdapter<Invitation> {
     List<Object> iidList;
+    List <Object> groupIdList;
 
-    public InvitationListAdapter(Context ctx, List<Invitation> invitations, List<Object> iidL){
+    public InvitationListAdapter(Context ctx, List<Invitation> invitations, List<Object> iidL, List<Object> groupIdList){
 
         super(ctx,android.R.layout.simple_list_item_1,invitations);
         iidList = iidL;
+        this.groupIdList = groupIdList;
     }
 
     @Override
@@ -51,7 +53,7 @@ public class InvitationListAdapter extends ArrayAdapter<Invitation> {
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Connector.getInstance().acceptInvitation(,getItem(position).getGroupTitle(),iidList.get(position));
+                    Connector.getInstance().acceptInvitation(groupIdList.get(position),getItem(position).getGroupTitle(),iidList.get(position));
                 }
             });
 

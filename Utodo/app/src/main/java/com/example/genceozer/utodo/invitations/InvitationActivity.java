@@ -17,6 +17,7 @@ public class InvitationActivity extends AppCompatActivity implements Connector.C
     static ListView invitationListView;
     static List<Invitation> invitationList;
     static List<Object> invitationId;
+    static List<Object> groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +31,20 @@ public class InvitationActivity extends AppCompatActivity implements Connector.C
 
         Connector.getInstance().getUserInvitations();
 
-        InvitationListAdapter adp = new InvitationListAdapter(this, invitationList);
+        InvitationListAdapter adp = new InvitationListAdapter(this, invitationList,invitationId,groupId);
         invitationListView.setAdapter(adp);
     }
 
     @Override
-    public void invitationLoaded(Invitation i,Object iid){
+    public void invitationLoaded(Invitation i,Object iid , Object gid){
         invitationList.add(i);
         invitationId.add(iid);
+        groupId.add(gid);
         ((BaseAdapter) invitationListView.getAdapter()).notifyDataSetChanged();
     }
 
     @Override
-    public void invitationRefreshInvitations(){
+    public void refreshInvitations(){
         ((BaseAdapter) invitationListView.getAdapter()).notifyDataSetChanged();
     }
 }
