@@ -60,6 +60,7 @@ public class Connector{
 
     public interface ConnectorInvitation{
         public void invitationLoaded(Invitation invitation, Object stid);
+        public void refreshInvitations();
     }
     public InvitationActivity invitationActivityDelegate = new InvitationActivity();
     //End Delegates******
@@ -433,7 +434,7 @@ public class Connector{
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                invitationActivityDelegate.refreshInvitations();
             }
 
             @Override
@@ -446,5 +447,20 @@ public class Connector{
 
             }
         });
+    }
+
+    public void deleteInvitation(Object iid){
+        Firebase postRef = rootRef.child("users/" + loggedUser.getUsername() + "/invitations/" + iid.toString() );
+        postRef.removeValue();
+    }
+
+    public void acceptInvitation(Object gid, String groupname, Object iid){
+        deleteInvitation(iid);
+
+        Firebase postRef = rootRef.child("groups/" + gid + "/members");
+        postRef.push().setValue(loggedUser.getUsername());
+
+        postRef = rootRef.child("users/" + loggedUser.getUsername() + "/groupList/" + gid);
+        postRef.setValue(groupname);
     }
 }
