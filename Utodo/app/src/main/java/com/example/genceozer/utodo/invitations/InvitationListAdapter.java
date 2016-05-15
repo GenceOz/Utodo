@@ -20,11 +20,12 @@ import com.example.genceozer.utodo.entities.SubTask;
 import java.util.List;
 
 public class InvitationListAdapter extends ArrayAdapter<Invitation> {
+    List<Object> iidList;
 
-    public InvitationListAdapter(Context ctx, List<Invitation> invitations){
+    public InvitationListAdapter(Context ctx, List<Invitation> invitations, List<Object> iidL){
 
         super(ctx,android.R.layout.simple_list_item_1,invitations);
-
+        iidList = iidL;
     }
 
     @Override
@@ -50,14 +51,14 @@ public class InvitationListAdapter extends ArrayAdapter<Invitation> {
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Connector.getInstance().acceptInvitation(getItem(position).getGroupTitle());
+                    Connector.getInstance().acceptInvitation(,getItem(position).getGroupTitle(),iidList.get(position));
                 }
             });
 
             holder.reject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Connector.getInstance().deleteInvitation();
+                    Connector.getInstance().deleteInvitation(iidList.get(position));
                 }
             });
 
