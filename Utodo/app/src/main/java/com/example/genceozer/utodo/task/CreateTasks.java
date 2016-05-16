@@ -33,7 +33,7 @@ import java.util.List;
 public class CreateTasks extends AppCompatActivity implements Connector.ConnectorCreateTask {
 
     EditText name,description;
-    static String taskDate;
+    static String taskDate = "";
     static List<SubTask> subTaskList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

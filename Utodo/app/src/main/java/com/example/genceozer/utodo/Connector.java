@@ -488,6 +488,7 @@ public class Connector{
     public void completeTask(Object gid, Object tid){
         Firebase postRef = rootRef.child("groups/" + gid + "/tasks/" + tid + "/isDone");
         postRef.setValue(true);
+        infoActivityDelegate.endTaskDelete();
     }
 
 

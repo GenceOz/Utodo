@@ -40,7 +40,7 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
         Intent i = getIntent();
         gid = i.getStringExtra("gid");
 
-        Connector.getInstance().getTasks(getIntent().getStringExtra("gid"));
+        //Connector.getInstance().getTasks(getIntent().getStringExtra("gid"));
 
         TaskListAdapter adp = new TaskListAdapter(this,tasks);
         tasksListView.setAdapter(adp);
@@ -51,14 +51,25 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
 
                 Intent i = new Intent(TaskActivity.this, SubtaskActivity.class);
 
-                i.putExtra("tid",taskId.get(position).toString());
-                i.putExtra("gid",gid);
-                i.putExtra("title",tasks.get(position).getTitle());
-                i.putExtra("desc",tasks.get(position).getDescription());
+                i.putExtra("tid", taskId.get(position).toString());
+                i.putExtra("gid", gid);
+                i.putExtra("title", tasks.get(position).getTitle());
+                i.putExtra("desc", tasks.get(position).getDescription());
                 startActivity(i);
 
             }
         });
+
+    }
+
+    @Override
+    public void onResume(){
+        Log.i("Dev","On resume called");
+        super.onResume();
+        tasks.clear();
+        taskId.clear();
+        Log.i("Dev",gid);
+        Connector.getInstance().getTasks(gid);
 
     }
 
@@ -89,6 +100,7 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
 
     @Override
     public void taskLoaded(Task t, Object tid){
+        Log.i("Dev","**");
         tasks.add(t);
         taskId.add(tid);
         ((BaseAdapter) tasksListView.getAdapter()).notifyDataSetChanged();
