@@ -18,6 +18,7 @@ import com.example.genceozer.utodo.subtask.SubtaskActivity;
 import com.example.genceozer.utodo.task.CreateTasks;
 import com.example.genceozer.utodo.task.TaskActivity;
 import com.example.genceozer.utodo.task.TaskInfoActivity;
+import com.example.genceozer.utodo.taskgroup.CreateTaskGroupActivity;
 import com.example.genceozer.utodo.taskgroup.TaskGroupActivity;
 import com.firebase.client.*;
 import android.app.Dialog;
@@ -69,8 +70,12 @@ public class Connector{
     public interface ConnectorTaskInfoActivity{
         public void endTaskDelete();
     }
-
     public TaskInfoActivity infoActivityDelegate = new TaskInfoActivity();
+
+    public interface ConnectorCreateTaskGroupActivity{
+        public void validityChecked(Boolean isUserValid);
+    }
+    public CreateTaskGroupActivity createTaskGroupActivityDelegate = new CreateTaskGroupActivity();
     //End Delegates******
 
 
@@ -489,6 +494,25 @@ public class Connector{
         Firebase postRef = rootRef.child("groups/" + gid + "/tasks/" + tid + "/isDone");
         postRef.setValue(true);
         infoActivityDelegate.endTaskDelete();
+    }
+
+    public void checkUserExistance(final String username){
+        rootRef.child("users/" + username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null && !username.equals(loggedUser.getUsername())){
+                    createTaskGroupActivityDelegate.validityChecked(true);
+                }
+                else{
+                    createTaskGroupActivityDelegate.validityChecked(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
 

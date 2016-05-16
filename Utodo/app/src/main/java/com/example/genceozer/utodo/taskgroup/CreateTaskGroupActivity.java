@@ -11,6 +11,7 @@ import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.genceozer.utodo.Connector;
 import com.example.genceozer.utodo.R;
@@ -20,11 +21,11 @@ import com.example.genceozer.utodo.entities.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateTaskGroupActivity extends AppCompatActivity {
+public class CreateTaskGroupActivity extends AppCompatActivity implements Connector.ConnectorCreateTaskGroupActivity {
 
-    EditText contributorName, taskGroupTitle;
-    List<String> contributorList;
-    ListView contributorListView;
+    static EditText contributorName, taskGroupTitle;
+    static List<String> contributorList;
+    static ListView contributorListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +66,17 @@ public class CreateTaskGroupActivity extends AppCompatActivity {
     }
 
     public void addUserToContributorList(View v){
-        //Check validity
-        contributorList.add(contributorName.getText().toString());
-        ((BaseAdapter)contributorListView.getAdapter()).notifyDataSetChanged();
+        Connector.getInstance().checkUserExistance(contributorName.getText().toString());
+    }
+
+    public void validityChecked(Boolean isUserValid){
+        if (isUserValid){
+            contributorList.add(contributorName.getText().toString());
+            ((BaseAdapter)contributorListView.getAdapter()).notifyDataSetChanged();
+        }
+        else{
+//            Toast.makeText(CreateTaskGroupActivity.this, "User does not exist.", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }
