@@ -30,7 +30,7 @@ public class CreateTaskGroupActivity extends AppCompatActivity implements Connec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task_group);
-
+        Connector.getInstance().createTaskGroupActivityDelegate = this;
         contributorListView = (ListView)findViewById(R.id.contributorListView);
         contributorName = (EditText)findViewById(R.id.contributorText);
         taskGroupTitle = (EditText)findViewById(R.id.taskGroupTitleText);
@@ -69,13 +69,15 @@ public class CreateTaskGroupActivity extends AppCompatActivity implements Connec
         Connector.getInstance().checkUserExistance(contributorName.getText().toString());
     }
 
+    @Override
     public void validityChecked(Boolean isUserValid){
         if (isUserValid){
             contributorList.add(contributorName.getText().toString());
             ((BaseAdapter)contributorListView.getAdapter()).notifyDataSetChanged();
+            Toast.makeText(CreateTaskGroupActivity.this, "User invited.", Toast.LENGTH_SHORT).show();
         }
         else{
-//            Toast.makeText(CreateTaskGroupActivity.this, "User does not exist.", Toast.LENGTH_SHORT).show();
+           Toast.makeText(CreateTaskGroupActivity.this, "User does not exist.", Toast.LENGTH_SHORT).show();
         }
 
     }

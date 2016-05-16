@@ -68,8 +68,9 @@ public class TaskActivity extends AppCompatActivity implements Connector.Connect
         super.onResume();
         tasks.clear();
         taskId.clear();
-        Log.i("Dev",gid);
+        Log.i("Dev", gid);
         Connector.getInstance().getTasks(gid);
+        ((BaseAdapter) tasksListView.getAdapter()).notifyDataSetChanged();
 
     }
 
